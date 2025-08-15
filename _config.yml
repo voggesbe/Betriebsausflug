@@ -1,0 +1,52 @@
+# _config.yml
+baseurl: ""
+url: "https://website-company-trip-a6eaf1.cw-gitlab-pages.codewerk.de"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+highlighter: rouge
+rouge:
+  theme: github
+
+permalink: pretty
+
+title: 'Betriebsausflug Codewerk 2025'
+tagline: 'A Jekyll theme'
+description: 'Unser diesjähriger Betriebsausflug. Erste Infos findet ihr hier!'
+
+author:
+  name: 'Laura Voggesberger'
+
+paginate: 5
+paginate_path: "page:num"
+
+version: 2.1.0
+
+github:
+  repo: https://github.com/poole/hyde
+
+plugins:
+  - jekyll-paginate
+
+sass:
+  sass_dir: _sass  # default folder for partials
+  style: compressed
+  syntax: scss
+  implementation: sass-embedded
+
+include:
+  - assets/css/style.css
+  - assets/*
+  - assets/data/*
+  - assets/js/*
+
+exclude:
+  - pages/Packliste.md       # exclude a specific file
+  - _posts/2012-02-06-whats-jekyll.md
+  - _posts/2012-02-07-example-content.md
+  - _posts/2013-12-28-introducing-hyde.md
+
+

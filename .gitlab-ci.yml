@@ -1,0 +1,28 @@
+image: ruby:3.2
+
+variables:
+  JEKYLL_ENV: production
+
+cache:
+  paths:
+    - vendor/bundle
+    - .jekyll-cache
+
+before_script:
+  - gem install bundler
+  - bundle install --path vendor/bundle
+
+pages:
+  stage: build
+  script:
+    - bundle exec jekyll clean
+    - bundle exec jekyll build -d public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  tags:
+    - docker
+    - linux
+

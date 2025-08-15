@@ -1,0 +1,54 @@
+---
+layout: page
+title: "Umfrage zur Teilnahme"
+---
+<p class="intro">
+    Bitte füllt dieses kurze Formular aus, damit wir besser planen können. Wir möchten wissen, ob ihr an der
+    Veranstaltung teilnehmen wollt und welche Verpflegungswünsche ihr habt.
+</p>
+
+<form action="http://192.168.140.209/submit.php" method="POST" id="survey-form">
+    <input type="hidden" name="_next" value="/pages/danke/" />
+    <label for="name">Vollständiger Name *</label>
+    <input type="text" id="name" name="name" required placeholder="Dein vollständiger Name" />
+
+    <label for="attendance_trip">Wirst du am Ausflug teilnehmen? *</label>
+    <select id="attendance_trip" name="attendance_trip" required>
+        <option value="">-- Bitte wählen --</option>
+        <option value="Ja">Ja, ich werde teilnehmen</option>
+        <option value="Nein">Nein, ich kann nicht teilnehmen</option>
+    </select>
+
+    <label for="attendance_dinner">Wirst du am Abendessen teilnehmen? *</label>
+    <select id="attendance_dinner" name="attendance_dinner" required>
+        <option value="">-- Bitte wählen --</option>
+        <option value="Ja">Ja, ich werde teilnehmen</option>
+        <option value="Nein">Nein, ich kann nicht teilnehmen</option>
+    </select>
+
+    <label for="food">Essenswunsch <small>(nur ausfüllen, wenn du teilnehmen wirst)</small></label>
+    <select id="food" name="food" required>
+        <option value="">-- Bitte wählen --</option>
+        <option value="Mit Fleisch/Fisch">Mit Fleisch/Fisch</option>
+        <option value="Vegetarisch">Vegetarisch</option>
+        <option value="Vegan">Vegan</option>
+        <option value="Andere">Andere</option>
+    </select>
+    <div id="food-other-container" style="display:none; margin-top:0.5em;">
+        <label for="food-other">Bitte ausführen:*</label>
+        <input type="text" id="food-other" name="food_other" placeholder="Bitte Essenswunsch genauer angeben" />
+    </div>
+    <label for="allergien">Allergien</label>
+    <input type="text" id="allergien" name="allergien" placeholder="Ausfüllen, falls Allergien bestehen" />
+
+    <label for="comments">Sonstige Anmerkungen</label>
+    <textarea id="comments" name="comments" placeholder="Sonstiges" rows="4" cols="50"></textarea>
+
+
+
+    <button type="submit">Absenden</button>
+</form>
+
+<p class="note">* Pflichtfelder</p>
+
+<script src="{{ '/assets/js/umfrage.js' | relative_url }}"></script>

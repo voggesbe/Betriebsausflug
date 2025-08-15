@@ -1,0 +1,12 @@
+<div class="timeplan">
+    <h2>Upcoming Events</h2>
+    <ul>
+        {% for slot in site.data.timeslots %}
+        <li class="timeslot" data-datetime="{{ slot.date }}T{{ slot.time }}">
+            <strong>{{ slot.title }}</strong><br />
+            {{ slot.date }} {{ slot.time }}<br />
+            <em>{{ slot.description }}</em>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
