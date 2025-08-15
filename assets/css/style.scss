@@ -1,12 +1,12 @@
 ---
 ---
 
-@use "variables"; // if you have _variables.scss in _sass/
-@use "normalize"; // same for other partials
-@use "jekyll-theme-cayman"; // optional
-@use "dark-mode-style";
-@use "questionnaire";
-@use "sheep_quiz";
+@import "variables"; // if you have _variables.scss in _sass/
+@import "normalize"; // same for other partials
+@import "jekyll-theme-cayman"; // optional
+@import "dark-mode-style";
+@import "questionnaire";
+@import "sheep_quiz";
 
 #timeslot-list {
     list-style-type: none;
