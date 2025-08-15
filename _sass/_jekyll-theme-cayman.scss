@@ -5,19 +5,19 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap");
 
 @mixin large {
-  @media screen and (min-width: #{variables.$large-breakpoint}) {
+  @media screen and (min-width: $large-breakpoint) {
     @content;
   }
 }
 
 @mixin medium {
-  @media screen and (min-width: #{variables.$medium-breakpoint}) and (max-width: #{variables.$large-breakpoint}) {
+  @media screen and (min-width: $medium-breakpoint) and (max-width: $large-breakpoint) {
     @content;
   }
 }
 
 @mixin small {
-  @media screen and (max-width: #{variables.$medium-breakpoint}) {
+  @media screen and (max-width: $medium-breakpoint) {
     @content;
   }
 }
@@ -32,7 +32,7 @@ body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: variables.$body-text-color;
+  color: $body-text-color;
 }
 
 #skip-to-content {
@@ -48,13 +48,13 @@ body {
     left: 10px;
     height: auto;
     width: auto;
-    background: color.invert(variables.$body-link-color);
-    outline: thick solid color.invert(variables.$body-link-color);
+    background: color.invert($body-link-color);
+    outline: thick solid color.invert($body-link-color);
   }
 }
 
 a {
-  color: variables.$body-link-color;
+  color: $body-link-color;
   text-decoration: none;
 
   &:hover {
@@ -110,10 +110,10 @@ a {
 }
 
 .page-header {
-  color: variables.$header-heading-color;
+  color: $header-heading-color;
   text-align: center;
-  background-color: variables.$header-bg-color;
-  background-image: linear-gradient(120deg, variables.$header-bg-color-secondary, variables.$header-bg-color);
+  background-color: $header-bg-color;
+  background-image: linear-gradient(120deg, $header-bg-color-secondary, $header-bg-color);
 
   @include large {
     padding: 5rem 6rem;
@@ -211,7 +211,7 @@ a {
     margin-top: 1rem;
     margin-bottom: 1rem;
     font-weight: normal;
-    color: variables.$section-headings-color2;
+    color: $section-headings-color2;
   }
 
   h1,
@@ -220,7 +220,7 @@ a {
     margin-top: 1rem;
     margin-bottom: 1rem;
     font-weight: normal;
-    color: variables.$section-headings-color1;
+    color: $section-headings-color1;
   }
 
   p {
@@ -231,8 +231,8 @@ a {
     padding: 2px 4px;
     font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 0.9rem;
-    color: variables.$code-text-color;
-    background-color: variables.$code-bg-color;
+    color: $code-text-color;
+    background-color: $code-bg-color;
     border-radius: 0.3rem;
   }
 
@@ -246,17 +246,17 @@ a {
       Menlo,
       Courier,
       monospace;
-    color: variables.$code-text-color;
+    color: $code-text-color;
     word-wrap: normal;
-    background-color: variables.$code-bg-color;
-    border: solid 1px variables.$border-color;
+    background-color: $code-bg-color;
+    border: solid 1px $border-color;
     border-radius: 0.3rem;
 
     > code {
       padding: 0;
       margin: 0;
       font-size: 0.9rem;
-      color: variables.$code-text-color;
+      color: $code-text-color;
       word-break: normal;
       white-space: pre;
       background: transparent;
@@ -309,8 +309,8 @@ a {
   blockquote {
     padding: 0 1rem;
     margin-left: 0;
-    color: variables.$blockquote-text-color;
-    border-left: 0.3rem solid variables.$border-color;
+    color: $blockquote-text-color;
+    border-left: 0.3rem solid $border-color;
 
     > :first-child {
       margin-top: 0;
@@ -336,7 +336,7 @@ a {
     th,
     td {
       padding: 0.5rem 1rem;
-      border: 1px solid variables.$table-border-color;
+      border: 1px solid $table-border-color;
     }
   }
 
@@ -360,7 +360,7 @@ a {
     height: 2px;
     padding: 0;
     margin: 1rem 0;
-    background-color: variables.$hr-border-color;
+    background-color: $hr-border-color;
     border: 0;
   }
 }
@@ -368,7 +368,7 @@ a {
 .site-footer {
   padding-top: 2rem;
   margin-top: 2rem;
-  border-top: solid 1px variables.$hr-border-color;
+  border-top: solid 1px $hr-border-color;
 
   @include large {
     font-size: 1rem;
@@ -389,7 +389,7 @@ a {
 }
 
 .site-footer-credits {
-  color: variables.$blockquote-text-color;
+  color: $blockquote-text-color;
 }
 
 @media (prefers-color-scheme: dark) {
