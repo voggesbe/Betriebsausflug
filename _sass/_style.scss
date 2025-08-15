@@ -1,15 +1,15 @@
-@use "jekyll-theme-cayman"; // or your base theme, if needed
-@use "variables"; // optional
-@use "normalize";
-@use "rouge-github"; // syntax highlighting
+@import "jekyll-theme-cayman"; // or your base theme, if needed
+@import "variables"; // optional
+@import "normalize";
+@import "rouge-github"; // syntax highlighting
 // Now include or override variables before theme import if needed:
 $section-headings-color: #0086b3;
 
-@use "normalize";
-@use "variables";
-@use "rouge-github";
+@import "normalize";
+@import "variables";
+@import "rouge-github";
 
 // Your custom rules below:
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
 }

@@ -1,8 +1,8 @@
-@use "normalize";
-@use "rouge-github";
-@use "variables";
-@use "sass:color";
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+@import "normalize";
+@import "rouge-github";
+@import "variables";
+@import "sass:color";
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap");
 
 @mixin large {
   @media screen and (min-width: #{variables.$large-breakpoint}) {
@@ -71,7 +71,10 @@ a {
   border-style: solid;
   border-width: 1px;
   border-radius: 0.3rem;
-  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s,
+    border-color 0.2s;
 
   &:hover {
     color: rgba(255, 255, 255, 0.8);
@@ -80,7 +83,7 @@ a {
     border-color: rgba(255, 255, 255, 0.3);
   }
 
-  +.btn {
+  + .btn {
     margin-left: 1rem;
   }
 
@@ -99,7 +102,7 @@ a {
     padding: 0.75rem;
     font-size: 0.9rem;
 
-    +.btn {
+    + .btn {
       margin-top: 1rem;
       margin-left: 0;
     }
@@ -237,14 +240,19 @@ a {
     padding: 0.8rem;
     margin-top: 0;
     margin-bottom: 1rem;
-    font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font:
+      1rem Consolas,
+      "Liberation Mono",
+      Menlo,
+      Courier,
+      monospace;
     color: variables.$code-text-color;
     word-wrap: normal;
     background-color: variables.$code-bg-color;
     border: solid 1px variables.$border-color;
     border-radius: 0.3rem;
 
-    >code {
+    > code {
       padding: 0;
       margin: 0;
       font-size: 0.9rem;
@@ -385,9 +393,9 @@ a {
 }
 
 @media (prefers-color-scheme: dark) {
-  $light: 0
+  $light: 0;
 }
 
 @media (prefers-color-scheme: light) {
-  $light: 1
+  $light: 1;
 }
