@@ -1,6 +1,6 @@
 # _config.yml
-baseurl: ""
-url: "https://website-company-trip-a6eaf1.cw-gitlab-pages.codewerk.de"
+baseurl: "/Betriebsausflug"
+url: "https://voggesbe.github.io/Betriebsausflug/"
 
 markdown: kramdown
 kramdown:
