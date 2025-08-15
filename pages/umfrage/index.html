@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+    Umfrage zur Teilnahme &middot; Betriebsausflug Codewerk 2025
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/poole.css">
+  <link rel="stylesheet" href="/assets/css/syntax.css">
+  <link rel="stylesheet" href="/assets/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Your custom styles -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/css/codewerk_c_big.png">
+  <link rel="shortcut icon" href="/assets/css/codewerk_c.png">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+<body class="">
+
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          Betriebsausflug Codewerk 2025
+        </a>
+      </h1>
+      <p class="lead">Unser diesjähriger Betriebsausflug. Erste Infos findet ihr hier!</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item"
+        href="/">Home</a>
+
+
+      
+
+      
+      
+      
+      
+      
+      
+      
+      <a class="sidebar-nav-item hidden-sidebar-item"
+        href="/danke/" >
+        Danke für deine Teilnahme!
+      </a>
+      
+      
+      
+      
+      
+      <a class="sidebar-nav-item"
+        href="/pages/menu/" >
+        Menü
+      </a>
+      
+      
+      
+      <a class="sidebar-nav-item hidden-sidebar-item"
+        href="/pages/quiz/"  data-hide-until="2025-09-19T08:00:00" >
+        Schaf Quiz 🐑
+      </a>
+      
+      
+      
+      
+      
+      <a class="sidebar-nav-item"
+        href="/pages/timeplan/" >
+        Zeitplan
+      </a>
+      
+      
+      
+      <a class="sidebar-nav-item active"
+        href="/pages/umfrage/" >
+        Umfrage zur Teilnahme
+      </a>
+      
+      
+      
+      
+      
+      
+
+
+
+    </nav>
+
+    <button id="dark-mode-toggle">🌙 Dark Mode</button>
+
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+  <div class="content container">
+    <div class="page">
+  <h1 class="page-title">Umfrage zur Teilnahme</h1>
+  <p class="intro">
+    Bitte füllt dieses kurze Formular aus, damit wir besser planen können. Wir möchten wissen, ob ihr an der
+    Veranstaltung teilnehmen wollt und welche Verpflegungswünsche ihr habt.
+</p>
+
+<form action="http://192.168.140.209/submit.php" method="POST" id="survey-form">
+    <input type="hidden" name="_next" value="/pages/danke/" />
+    <label for="name">Vollständiger Name *</label>
+    <input type="text" id="name" name="name" required placeholder="Dein vollständiger Name" />
+
+    <label for="attendance_trip">Wirst du am Ausflug teilnehmen? *</label>
+    <select id="attendance_trip" name="attendance_trip" required>
+        <option value="">-- Bitte wählen --</option>
+        <option value="Ja">Ja, ich werde teilnehmen</option>
+        <option value="Nein">Nein, ich kann nicht teilnehmen</option>
+    </select>
+
+    <label for="attendance_dinner">Wirst du am Abendessen teilnehmen? *</label>
+    <select id="attendance_dinner" name="attendance_dinner" required>
+        <option value="">-- Bitte wählen --</option>
+        <option value="Ja">Ja, ich werde teilnehmen</option>
+        <option value="Nein">Nein, ich kann nicht teilnehmen</option>
+    </select>
+
+    <label for="food">Essenswunsch <small>(nur ausfüllen, wenn du teilnehmen wirst)</small></label>
+    <select id="food" name="food" required>
+        <option value="">-- Bitte wählen --</option>
+        <option value="Mit Fleisch/Fisch">Mit Fleisch/Fisch</option>
+        <option value="Vegetarisch">Vegetarisch</option>
+        <option value="Vegan">Vegan</option>
+        <option value="Andere">Andere</option>
+    </select>
+    <div id="food-other-container" style="display:none; margin-top:0.5em;">
+        <label for="food-other">Bitte ausführen:*</label>
+        <input type="text" id="food-other" name="food_other" placeholder="Bitte Essenswunsch genauer angeben" />
+    </div>
+    <label for="allergien">Allergien</label>
+    <input type="text" id="allergien" name="allergien" placeholder="Ausfüllen, falls Allergien bestehen" />
+
+    <label for="comments">Sonstige Anmerkungen</label>
+    <textarea id="comments" name="comments" placeholder="Sonstiges" rows="4" cols="50"></textarea>
+
+
+
+    <button type="submit">Absenden</button>
+</form>
+
+<p class="note">* Pflichtfelder</p>
+
+<script src="/assets/js/umfrage.js"></script>
+</div>
+
+  </div>
+  <script src="/assets/js/dark_mode.js"></script>
+  <script src="/assets/js/show_sidebar.js"></script>
+  <!-- <script src="/assets/js/prefers-colour-scheme.js"></script> -->
+</body>
+
+</html>
