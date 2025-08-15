@@ -1,31 +1,35 @@
-name: GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main  # Set this to the branch you use for source code
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write   # REQUIRED: allows pushing to the gh-pages branch
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     steps:
-    - uses: actions/checkout@v3
+      # Checkout your repository
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ensures full history for Page builds
 
-    - name: Setup Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.2
-        bundler-cache: true
+      # (Add any build steps here, e.g. build static files)
+      # Example:
+      # - name: Build
+      #   run: hugo --minify
 
-    - name: Install dependencies
-      run: bundle install
-
-    - name: Build the site with Jekyll
-      run: bundle exec jekyll build -d public
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public   # Set this to your build output directory
