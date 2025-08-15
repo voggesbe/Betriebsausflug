@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const now = new Date();
     const listElement = document.getElementById('timeslot-list');
+    const base = window.location.origin + '/Betriebsausflug';
 
-    fetch('{{ "/assets/data/timeslots.json" | relative_url }}')
+    fetch(`${base}/assets/data/timeslots.json`)
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.json();
@@ -16,21 +17,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                // Determine if this slot should be shown
                 if (slotDate <= now || slot.surprise || slot.showAlways) {
                     const li = document.createElement('li');
                     li.classList.add(slot.eventType || 'general');
                     li.setAttribute('data-datetime', slot.datetime);
 
                     if (slot.surprise && slotDate > now) {
-                        // Future surprise event – show placeholder
                         li.innerHTML = `
               <strong>Surprise event</strong><br />
               ${slot.datetime.replace('T', ' ')}<br />
               <em>Details will be revealed later.</em>
             `;
                     } else {
-                        // Show normal event info
                         li.innerHTML = `
               <strong>${slot.title}</strong><br />
               ${slot.datetime.replace('T', ' ')}<br />
