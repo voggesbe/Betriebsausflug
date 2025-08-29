@@ -1,36 +1,63 @@
-// --- Quiz Data ---
+// --- Quiz Data (German) ---
 const quizQuestions = [
     {
         type: "single",
-        question: "How many stomach compartments does a sheep have?",
-        options: ["2", "4", "1"],
+        question: "Wie viele Mägen hat ein Schaf?",
+        options: ["1", "2", "4"],
         correct: "4",
         points: 1
     },
     {
         type: "single",
-        question: "What is a baby sheep called?",
-        options: ["calf", "lamb", "foal"],
-        correct: "lamb",
+        question: "Wie nennt man ein junges Schaf?",
+        options: ["Lamm", "Fohlen", "Kalb"],
+        correct: "Lamm",
         points: 1
     },
     {
         type: "multiple",
-        question: "Which of these are breeds of sheep?",
-        options: ["Merino", "Holstein", "Angus"],
-        correct: ["Merino"],
+        question: "Welche der folgenden sind Schafrassen?",
+        options: ["Merino", "Angus", "Texel"],
+        correct: ["Merino", "Texel"],
+        points: 2
+    },
+    {
+        type: "text",
+        question: "Welches Geräusch macht ein Schaf (auf Englisch)?",
+        correct: ["baa", "baaa"],
+        points: 1
+    },
+    {
+        type: "single",
+        question: "Wie nennt man die Wolle eines Schafs, bevor sie geschoren wird?",
+        options: ["Vlies", "Fell", "Pelz"],
+        correct: "Vlies",
+        points: 1
+    },
+    {
+        type: "multiple",
+        question: "Welche Tiere leben typischerweise in einer Herde?",
+        options: ["Schaf", "Löwe", "Ziege", "Elefant"],
+        correct: ["Schaf", "Ziege", "Elefant"],
+        points: 3
+    },
+    {
+        type: "single",
+        question: "Was ist die Lieblingsnahrung von Schafen?",
+        options: ["Gras", "Fleisch", "Obst"],
+        correct: "Gras",
         points: 1
     },
     {
         type: "text",
-        question: "Type the animal sound sheep make (in English):",
-        correct: ["baa", "baaa"],
+        question: "Auf Deutsch: Wie nennt man einen männlichen Schafbock?",
+        correct: ["Widder"],
         points: 1
     }
 ];
 
 // --- Google Script endpoint ---
-const endpoint = "YOUR_GOOGLE_SCRIPT_URL"; // replace with your deployed Apps Script URL
+const endpoint = "https://script.google.com/macros/s/AKfycbxZijIvdLiQPVi6d1IAGz_WaPjey_AA45-vMy9QCaz7ddm7EpWm6lI3BFFRFqFLw_iN/exec"; // replace with your deployed Apps Script URL
 
 // --- Render Quiz ---
 function renderQuiz() {
@@ -65,7 +92,7 @@ function renderQuiz() {
             const input = document.createElement("input");
             input.type = "text";
             input.name = `q${i}`;
-            input.placeholder = "Your answer";
+            input.placeholder = "Ihre Antwort";
             answersDiv.appendChild(input);
         }
 
@@ -74,12 +101,26 @@ function renderQuiz() {
     });
 }
 
+// --- Create Google Sheets Headers ---
+function createSheetHeaders() {
+    fetch(endpoint + "?action=createHeaders", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({
+            headers: ["Timestamp", "Teilnehmer Name"].concat(
+                quizQuestions.flatMap((q, i) => [`Frage ${i + 1} Antwort`, `Frage ${i + 1} Punkte`])
+            ).concat(["Gesamt Punkte"])
+        }),
+        headers: { "Content-Type": "application/json" }
+    }).catch(err => console.log("Headers creation skipped (expected with no-cors):", err));
+}
+
 // --- Handle Submit ---
 document.getElementById("submit").addEventListener("click", () => {
     const submitBtn = document.getElementById("submit");
     if (submitBtn.disabled) return;
 
-    const name = document.getElementById("participantName").value || "Anonymous";
+    const name = document.getElementById("participantName").value || "Anonym";
     let totalScore = 0;
     const answers = {};
 
@@ -123,7 +164,6 @@ document.getElementById("submit").addEventListener("click", () => {
         const questionScore = answers[`score_q${i}`];
         const qNumber = i + 1;
 
-        // Create a feedback box for each question
         const fbBox = document.createElement("div");
         fbBox.className = "feedback-box";
 
@@ -147,7 +187,7 @@ document.getElementById("submit").addEventListener("click", () => {
 
             if (userAnswer !== q.correct) {
                 const p = document.createElement("p");
-                p.textContent = `Correct answer: ${q.correct} (Score: ${questionScore})`;
+                p.textContent = `Richtige Antwort: ${q.correct} (Punkte: ${questionScore})`;
                 p.style.color = "#ff6600";
                 fbBox.appendChild(p);
             }
@@ -162,15 +202,15 @@ document.getElementById("submit").addEventListener("click", () => {
                 if (input.checked && correctSet.has(input.value)) {
                     label.style.color = "green";
                 } else if (!input.checked && correctSet.has(input.value)) {
-                    label.style.color = "orange";
+                    label.style.color = "orange"; // missed
                 } else if (input.checked && !correctSet.has(input.value)) {
-                    label.style.color = "red";
+                    label.style.color = "red"; // wrong
                 }
             });
 
             if (userAnswer.sort().join(",") !== q.correct.sort().join(",")) {
                 const p = document.createElement("p");
-                p.textContent = `Correct answer(s): ${q.correct.join(", ")} (Score: ${questionScore})`;
+                p.textContent = `Richtige Antwort(en): ${q.correct.join(", ")} (Punkte: ${questionScore})`;
                 p.style.color = "#ff6600";
                 fbBox.appendChild(p);
             }
@@ -185,7 +225,7 @@ document.getElementById("submit").addEventListener("click", () => {
 
             if (!correct) {
                 const p = document.createElement("p");
-                p.textContent = `Correct answer: ${q.correct.join(", ")} (Score: ${questionScore})`;
+                p.textContent = `Richtige Antwort: ${q.correct.join(", ")} (Punkte: ${questionScore})`;
                 p.style.color = "#ff6600";
                 fbBox.appendChild(p);
             }
@@ -194,9 +234,8 @@ document.getElementById("submit").addEventListener("click", () => {
         resultDiv.appendChild(fbBox);
     });
 
-    // Total score
     const totalH3 = document.createElement("h3");
-    totalH3.textContent = `Total Score: ${totalScore.toFixed(2)}/${quizQuestions.reduce((sum, q) => sum + q.points, 0)}`;
+    totalH3.textContent = `Gesamtpunkte: ${totalScore.toFixed(2)}/${quizQuestions.reduce((sum, q) => sum + q.points, 0)}`;
     totalH3.style.color = "#333";
     totalH3.style.textAlign = "center";
     totalH3.style.marginTop = "1rem";
@@ -208,11 +247,16 @@ document.getElementById("submit").addEventListener("click", () => {
         mode: "no-cors",
         body: JSON.stringify({ name, ...answers, totalScore }),
         headers: { "Content-Type": "application/json" }
-    }).catch(err => console.error("Error sending results:", err));
+    }).catch(err => console.error("Fehler beim Speichern der Ergebnisse:", err));
 
     submitBtn.disabled = true;
     document.getElementById("participantName").disabled = true;
 });
 
 // --- Initialize ---
+document.getElementById("participantName").placeholder = "Ihr Name";
+document.getElementById("submit").textContent = "Quiz absenden";
+
+// --- Render quiz and create sheet headers ---
 renderQuiz();
+createSheetHeaders();
