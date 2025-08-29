@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const now = new Date();
     const listElement = document.getElementById('timeslot-list');
+    const base = window.location.origin + '/Betriebsausflug';
 
-    fetch('/assets/data/timeslots.json')
+    fetch(`${base}/assets/data/timeslots.json`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
