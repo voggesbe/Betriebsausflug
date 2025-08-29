@@ -12,29 +12,77 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(timeslots => {
             timeslots.forEach(slot => {
                 const slotDate = new Date(slot.datetime);
+                const showOnDate = slot.show_on ? new Date(slot.show_on) : null;
 
-                // Show events if:
-                // 1) eventDate <= now (past or current)
-                // OR 2) event marked as surprise
-                // OR 3) event marked to always show
-                if (slotDate <= now || slot.surprise || slot.showAlways) {
+                // Determine visibility
+                let isVisible = false;
+
+                if (showOnDate) {
+                    // If show_on is defined, use it
+                    if (showOnDate <= now) {
+                        isVisible = true;
+                    }
+                } else {
+                    // Fallback to original rules
+                    if (slotDate <= now || slot.surprise || slot.showAlways) {
+                        isVisible = true;
+                    }
+                }
+
+                if (isVisible) {
                     const li = document.createElement('li');
                     li.classList.add(slot.eventType || 'general');
 
-                    if (slot.surprise && slotDate > now) {
-                        // Future surprise event - show placeholder
+                    if (slot.surprise && slotDate > now && !showOnDate) {
+                        // Future surprise event (hidden until show_on if defined)
                         li.innerHTML = `
-              <strong>Surprise event</strong><br />
-              ${slot.datetime.replace('T', ' ')}<br />
-              <em>Details will be revealed later.</em>
-            `;
+                            <strong>Überraschung</strong><br />
+                            ${slot.datetime.replace('T', ' ')}<br />
+                            <em>Details werden später bekannt gegeben.</em>
+                        `;
                     } else {
-                        // Show real event info
+                        // Place (address) handling
+                        let placeHtml = '';
+                        if (slot.place) {
+                            placeHtml = `<br />📍 ${slot.place}`;
+                        }
+
+                        // Maps link handling
+                        let mapsHtml = '';
+                        if (slot.maps_link) {
+                            mapsHtml = `
+                                <br />
+                                <a href="${slot.maps_link}" target="_blank" rel="noopener noreferrer">📍 Auf Google Maps ansehen</a>
+                                <div style="margin-top: 0.5em;">
+                                    <iframe 
+                                        src="${slot.maps_link.replace('/maps/', '/maps/embed?')}" 
+                                        width="300" 
+                                        height="200" 
+                                        style="border:0; border-radius:8px;" 
+                                        allowfullscreen="" 
+                                        loading="lazy" 
+                                        referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
+                            `;
+                        }
+
+                        // Website handling
+                        let websiteHtml = '';
+                        if (slot.website) {
+                            const url = slot.website.startsWith('http') ? slot.website : `https://${slot.website}`;
+                            websiteHtml = `<br /><a href="${url}" target="_blank" rel="noopener noreferrer">🌐 Website</a>`;
+                        }
+
+                        // Final event HTML
                         li.innerHTML = `
-              <strong>${slot.title}</strong><br />
-              ${slot.datetime.replace('T', ' ')}<br />
-              <em>${slot.description}</em>
-            `;
+                            <strong>${slot.title}</strong><br />
+                            ${slot.datetime.replace('T', ' ')}<br />
+                            <em>${slot.description}</em>
+                            ${placeHtml}
+                            ${mapsHtml}
+                            ${websiteHtml}
+                        `;
                     }
 
                     listElement.appendChild(li);
