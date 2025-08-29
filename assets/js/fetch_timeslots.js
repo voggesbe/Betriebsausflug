@@ -14,13 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
             timeslots.forEach(slot => {
                 const slotDate = new Date(slot.datetime);
                 const showOnDate = slot.show_on ? new Date(slot.show_on) : null;
+                const isSurprise = slot.surprise || slot.eventType === 'surprise';
 
                 // Determine visibility
                 let isVisible = false;
 
                 if (slot.showAlways) {
                     isVisible = true;
-                } else if (slot.surprise) {
+                } else if (isSurprise) {
                     // Surprises are always visible (as placeholder or full event)
                     isVisible = true;
                 } else if (showOnDate) {
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     li.classList.add(slot.eventType || 'general');
 
                     // Rendering
-                    if (slot.surprise && slotDate > now) {
+                    if (isSurprise && slotDate > now) {
                         // Show placeholder for future surprises
                         li.innerHTML = `
                             <strong>Überraschung</strong><br />
