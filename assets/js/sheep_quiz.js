@@ -172,15 +172,17 @@ document.getElementById("submit").addEventListener("click", () => {
 
     resultDiv.innerHTML += `<h3>Total Score: ${totalScore.toFixed(2)}/${quizQuestions.reduce((sum, q) => sum + q.points, 0)}</h3>`;
 
-    // Send results to Google Sheets
+    // --- Send results to Google Sheets ---
     fetch(endpoint, {
         method: "POST",
-        body: JSON.stringify({ name, ...answers, totalScore: totalScore.toFixed(2) }),
+        mode: "no-cors", // bypass CORS restrictions
+        body: JSON.stringify({ name, ...answers, totalScore }),
         headers: { "Content-Type": "application/json" }
     })
         .then(res => res.json())
         .then(data => console.log("Saved!", data))
-        .catch(err => console.error("Error:", err));
+        .catch(err => console.error("Error sending results:", err));
+
 
     // Disable submit button and name input
     submitBtn.disabled = true;
