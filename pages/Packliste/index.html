@@ -10,7 +10,7 @@
 
   <title>
     
-    Umfrage zur Teilnahme &middot; Betriebsausflug Codewerk 2025
+    Packliste &middot; Betriebsausflug Codewerk 2025
     
   </title>
 
@@ -56,7 +56,7 @@
       
       
       
-      <a class="sidebar-nav-item"
+      <a class="sidebar-nav-item active"
         href="/Betriebsausflug/pages/Packliste/" >
         Packliste
       </a>
@@ -98,12 +98,10 @@
       
       
       
-      <a class="sidebar-nav-item active"
+      <a class="sidebar-nav-item"
         href="/Betriebsausflug/pages/umfrage/" >
         Umfrage zur Teilnahme
       </a>
-      
-      
       
       
       
@@ -118,57 +116,38 @@
 
   <div class="content container">
     <div class="page">
-  <h1 class="page-title">Umfrage zur Teilnahme</h1>
-  <p class="intro">
-    Bitte füllt dieses kurze Formular aus, damit wir besser planen können. Wir möchten wissen, ob ihr an der
-    Veranstaltung teilnehmen wollt und welche Verpflegungswünsche ihr habt.
-</p>
+  <h1 class="page-title">Packliste</h1>
+  <p>Damit wir einen tollen Ausflug haben, sind hier ein paar Vorschläge, was ihr mitnehmen könnt.<br />
+Für Mittagessen und Snacks ist gesorgt – aber denkt an euch und das Wetter! 🐑🏞️☕️</p>
 
-<form action="https://formspree.io/f/mkgzqzol" method="POST" id="survey-form">
-    <input type="hidden" name="_next" value="https://voggesbe.github.io/Betriebsausflug/pages/danke/" />
-    <label for="name">Vollständiger Name *</label>
-    <input type="text" id="name" name="name" required placeholder="Dein vollständiger Name" />
+<h2 id="für-den-ausflug">Für den Ausflug</h2>
 
-    <label for="attendance_trip">Wirst du am Ausflug teilnehmen? *</label>
-    <select id="attendance_trip" name="attendance_trip" required>
-        <option value="">-- Bitte wählen --</option>
-        <option value="Ja">Ja, ich werde teilnehmen</option>
-        <option value="Nein">Nein, ich kann nicht teilnehmen</option>
-    </select>
+<ul>
+  <li><strong>Wetterfeste Kleidung</strong> Zwiebelprinzip – morgens kann’s kühl sein!, denkt an Regenjacken</li>
+  <li><strong>Feste, bequeme Schuhe</strong> (Gelände kann uneben sein)</li>
+  <li><strong>Kopfbedeckung</strong> (Sonne oder Wind)</li>
+  <li><strong>Sonnencreme</strong> (auch bei Wolken!)</li>
+  <li><strong>Trinkflasche</strong></li>
+  <li><strong>Kleine Tasche oder Rucksack</strong></li>
+  <li><strong>Saubere/ordentliche Kleidung</strong> fürs Restaurant, bequeme Alltagskleidung reicht aus</li>
+  <li><strong>Etwas Bargeld oder EC-Karte</strong> (für Kaffee &amp; evtl. Souvenirs)</li>
+  <li><strong>Zeckenspray</strong></li>
+</ul>
 
-    <label for="attendance_dinner">Wirst du am Abendessen teilnehmen? *</label>
-    <select id="attendance_dinner" name="attendance_dinner" required>
-        <option value="">-- Bitte wählen --</option>
-        <option value="Ja">Ja, ich werde teilnehmen</option>
-        <option value="Nein">Nein, ich kann nicht teilnehmen</option>
-    </select>
+<h2 id="persönliches--optionales">Persönliches &amp; Optionales</h2>
 
-    <label for="food">Essenswunsch <small>(nur ausfüllen, wenn du teilnehmen wirst)</small></label>
-    <select id="food" name="food" required>
-        <option value="">-- Bitte wählen --</option>
-        <option value="Mit Fleisch/Fisch">Mit Fleisch/Fisch</option>
-        <option value="Vegetarisch">Vegetarisch</option>
-        <option value="Vegan">Vegan</option>
-        <option value="Andere">Andere</option>
-    </select>
-    <div id="food-other-container" style="display:none; margin-top:0.5em;">
-        <label for="food-other">Bitte ausführen:*</label>
-        <input type="text" id="food-other" name="food_other" placeholder="Bitte Essenswunsch genauer angeben" />
-    </div>
-    <label for="allergien">Allergien</label>
-    <input type="text" id="allergien" name="allergien" placeholder="Ausfüllen, falls Allergien bestehen" />
+<ul>
+  <li><strong>Perso oder Ausweis</strong></li>
+  <li><strong>Medikamente, falls nötig</strong></li>
+  <li><strong>Taschentücher</strong></li>
+  <li><strong>Sonnenbrille</strong></li>
+  <li><strong>Powerbank für’s Handy</strong></li>
+</ul>
 
-    <label for="comments">Sonstige Anmerkungen</label>
-    <textarea id="comments" name="comments" placeholder="Sonstiges" rows="4" cols="50"></textarea>
+<hr />
 
+<p>Bei Fragen einfach kurz Bescheid sagen – wir freuen uns auf den Tag mit euch!</p>
 
-
-    <button type="submit">Absenden</button>
-</form>
-
-<p class="note">* Pflichtfelder</p>
-
-<script src="/Betriebsausflug/assets/js/umfrage.js"></script>
 </div>
 
   </div>
