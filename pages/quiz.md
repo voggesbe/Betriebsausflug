@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Schaf Quiz 🐑
+title: Schaf-Quiz 🐑
 no_sidebar: true
 hide_until_date: '2025-09-19T08:00:00'  # ISO format date-time (optional)
 ---
