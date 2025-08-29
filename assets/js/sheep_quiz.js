@@ -30,7 +30,7 @@ const quizQuestions = [
 ];
 
 // --- Google Script endpoint ---
-const endpoint = "https://script.google.com/macros/s/AKfycbw0ENqxRjAjtWkKkA3vdFXMDvraBvbIuJiasmJRS4QLZDuqGxY5x122fn3N_HFd-5_2/exec"; // Replace with your deployed Google Apps Script URL
+const endpoint = "https://script.google.com/macros/s/AKfycbxZijIvdLiQPVi6d1IAGz_WaPjey_AA45-vMy9QCaz7ddm7EpWm6lI3BFFRFqFLw_iN/exec"; // Replace with your deployed Google Apps Script URL
 
 // --- Render Quiz ---
 function renderQuiz() {
