@@ -16,12 +16,19 @@
         "title": "Kaffeepause",
         "datetime": "2025-09-17T14:30",
         "description": "Gemeinsame Pause für Kaffee und Kuchen im Klostergarten",
-        "eventType": "break"
+        "webseite": "https://www.klostercafe-schöntal.de/",
+        "place": "Klosterhof 15 | 74214 Schöntal",
+        "maps_link": "https://maps.app.goo.gl/DLMwzH4CaSowPieZ7",
+        "eventType": "break",
+        "showAlways": true
     },
     {
         "title": "Klosterbesichtigung (wer will)",
         "datetime": "2025-09-17T15:30",
         "description": "Eine geführte Besichtigung des Klosters Schöntal",
+        "webseite": "https://www.kloster-schoental.de/kultur-freizeit/",
+        "place": "Klosterhof 6 | 74214 Schöntal",
+        "maps_link": "https://maps.app.goo.gl/qoTR4mn6L83aPxo48",
         "eventType": "break"
     },
     {
