@@ -1,20 +1,20 @@
 [
     {
         "title": "Treffen & Abfahrt",
-        "datetime": "2025-09-17T07:45",
+        "datetime": "2025-09-19T07:45",
         "description": "vor dem Codewerk Büro Karlsruhe",
         "eventType": "meeting",
         "showAlways": true
     },
     {
         "title": "Schafe hüten",
-        "datetime": "2025-09-17T10:15",
+        "datetime": "2025-09-19T10:15",
         "description": "Wir hüten gemeinsam Schafe. Wer sich inspiriert fühlt kann ein Gedicht schreiben oder ein Bild malen.",
         "eventType": "surprise"
     },
     {
         "title": "Kaffeepause",
-        "datetime": "2025-09-17T14:30",
+        "datetime": "2025-09-19T14:30",
         "description": "Gemeinsame Pause für Kaffee und Kuchen im Klostergarten",
         "website": "https://www.klostercafe-schöntal.de/",
         "place": "Klosterhof 15 | 74214 Schöntal",
@@ -24,7 +24,7 @@
     },
     {
         "title": "Klosterbesichtigung (wer will)",
-        "datetime": "2025-09-17T15:30",
+        "datetime": "2025-09-19T15:30",
         "description": "Eine geführte Besichtigung des Klosters Schöntal",
         "website": "https://www.kloster-schoental.de/kultur-freizeit/",
         "place": "Klosterhof 6 | 74214 Schöntal",
@@ -33,7 +33,7 @@
     },
     {
         "title": "Abendessen in Karlsruhe",
-        "datetime": "2025-09-17T18:30",
+        "datetime": "2025-09-19T18:30",
         "description": "Gemeinsames Abendessen.",
         "eventType": "dinner",
         "showAlways": true,
