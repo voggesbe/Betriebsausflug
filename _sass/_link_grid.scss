@@ -28,25 +28,24 @@
   transition: color 0.3s;
 }
 
-.link-card .sheep-icon {
-  width: 2.2rem;
-  height: 2.2rem;
+.link-card .mdi {
+  font-size: 2.2rem;
   margin-bottom: 0.8rem;
-  fill: #444;
-  transition: fill 0.3s;
+  color: #444; /* light mode default */
+  transition: color 0.3s;
 }
 
-.link-card:hover .sheep-icon {
-  fill: #0077cc; /* highlight on hover */
+.link-card:hover .mdi {
+  color: #0077cc; /* highlight on hover */
 }
 
-/* Dark mode */
-body.dark-mode .link-card .sheep-icon {
-  fill: #ccc;
+/* Dark mode styling */
+body.dark-mode .link-card .mdi {
+  color: #ccc;
 }
 
-body.dark-mode .link-card:hover .sheep-icon {
-  fill: #4da3ff;
+body.dark-mode .link-card:hover .mdi {
+  color: #4da3ff;
 }
 
 .link-card h3 {
