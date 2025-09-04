@@ -28,6 +28,27 @@
   transition: color 0.3s;
 }
 
+.link-card .sheep-icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-bottom: 0.8rem;
+  fill: #444;
+  transition: fill 0.3s;
+}
+
+.link-card:hover .sheep-icon {
+  fill: #0077cc; /* highlight on hover */
+}
+
+/* Dark mode */
+body.dark-mode .link-card .sheep-icon {
+  fill: #ccc;
+}
+
+body.dark-mode .link-card:hover .sheep-icon {
+  fill: #4da3ff;
+}
+
 .link-card h3 {
   margin: 0.2rem 0;
   font-size: 1.2rem;
