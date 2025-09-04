@@ -1,0 +1,12 @@
+.fahrgruppen {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.fahrer {
+    background: #f9f9f9;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

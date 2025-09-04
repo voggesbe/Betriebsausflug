@@ -228,3 +228,20 @@ body.dark-mode #submit:hover {
 body.dark-mode #result {
     color: #ffd966; /* match your warm yellow/gold */
 }
+
+.fahrer strong {
+    color: #222;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+/* Fahrgruppen grid - dark mode */
+body.dark-mode .fahrer {
+    background: #1d1d1d;
+    color: #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .fahrer strong {
+    color: #ffd966; /* matches your strong color choice */
+}
