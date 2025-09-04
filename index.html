@@ -158,6 +158,11 @@
     <h3>Menü</h3>
     <p>Was wir beim Abendessen serviert bekommen</p>
   </a>
+  <a href="/Betriebsausflug/pages/quiz/" class="link-card quiz-card hidden">
+    <i class="fa-solid fa-sheep"></i>
+    <h3>Schafs-Quiz</h3>
+    <p>Teste dein Wissen über Schafe 🐑</p>
+  </a>
 </div>
 
 
@@ -173,6 +178,18 @@
   <span class="pagination-item newer">Newer</span>
   
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const quizCard = document.querySelector(".quiz-card");
+    const today = new Date();
+    const unlockDate = new Date("2025-09-03T08:00:00"); // unlock at 08:00 on 19.09.25
+
+    if (today >= unlockDate) {
+      quizCard.classList.remove("hidden");
+    }
+  });
+</script>
   </div>
   <script src="/Betriebsausflug/assets/js/dark_mode.js"></script>
   <script src="/Betriebsausflug/assets/js/show_sidebar.js"></script>
