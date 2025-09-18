@@ -131,7 +131,7 @@ function renderQuiz() {
             const input = document.createElement("input");
             input.type = "text";
             input.name = `q${i}`;
-            input.placeholder = "Ihre Antwort";
+            input.placeholder = "Deine Antwort";
             answersDiv.appendChild(input);
         }
 
