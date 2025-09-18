@@ -10,7 +10,8 @@
         "title": "Klopause",
         "datetime": "ca. 2025-09-19T09:30",
         "description": "Bevor wir ankommen bitte nochmal eine Autobahn Raststätte mit Toilette besuchen",
-        "eventType": "break"
+        "eventType": "break",
+        "showAlways": true
     },
     {
         "title": "Schafe hüten",
