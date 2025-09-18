@@ -88,8 +88,8 @@ const quizQuestions = [
     {
         type: "single",
         question: "Wie groß sind traditionelle Herden von Wanderschäfern in Mitteleuropa?",
-        options: ["bis zu 100 Tieren", "bis zu 500 Tieren", "bis über 1000 Tiere"],
-        correct: "bis über 1000 Tiere",
+        options: ["bis zu 100 Tieren", "bis zu 500 Tieren", "bis zu 1000 Tiere"],
+        correct: "bis zu 1000 Tiere",
         points: 2
 
     },
@@ -157,17 +157,31 @@ function createSheetHeaders() {
         .catch(err => console.error("Header creation failed:", err));
 }
 
+// helper: normalize German text (lowercase + umlaut/ß transliteration + trim)
+const normalizeGerman = str =>
+    (str || "")
+        .trim()
+        .toLowerCase()
+        .replace(/ä/g, "ae")
+        .replace(/ö/g, "oe")
+        .replace(/ü/g, "ue")
+        .replace(/ß/g, "ss");
 
 // --- scoring helper for text questions ---
 function scoreTextQuestion(userRaw, q) {
     // normalize correct answers
-    const correctArray = (Array.isArray(q.correct) ? q.correct : [q.correct]).map(a => (a || "").trim().toLowerCase());
-    const correctSet = new Set(correctArray.filter(Boolean));
+
+    // normalize correct answers
+    const correctArray = (Array.isArray(q.correct) ? q.correct : [q.correct])
+        .map(a => normalizeGerman(a))
+        .filter(Boolean);
+
+    const correctSet = new Set(correctArray);
 
     // normalize user input: split on commas, semicolons, slash, "und", "and"
     const userAnswers = (userRaw || "")
         .split(/,|;|\/|\bund\b|\band\b/i)
-        .map(s => s.trim().toLowerCase())
+        .map(s => normalizeGerman(s))
         .filter(Boolean);
 
     const uniqueUser = Array.from(new Set(userAnswers));
@@ -322,7 +336,7 @@ document.getElementById("submit").addEventListener("click", () => {
             } else if (typeof userAnswerRaw === "string" && userAnswerRaw.trim() !== "") {
                 userAnswers = userAnswerRaw
                     .split(/,|;|\/|\bund\b|\band\b/i)
-                    .map(a => a.trim())
+                    .map(s => normalizeGerman(s))
                     .filter(Boolean);
             }
 
@@ -330,9 +344,9 @@ document.getElementById("submit").addEventListener("click", () => {
                 userAnswerDisplay = userAnswers.join(", ");
             }
 
-            const correctSet = new Set(q.correct.map(c => c.toLowerCase()));
+            const correctSet = new Set(q.correct.map(s => normalizeGerman(s)));
             fullyCorrect = userAnswers.length === correctSet.size &&
-                userAnswers.every(ans => correctSet.has(ans.toLowerCase()));
+                userAnswers.every(ans => correctSet.has(ans.normalizeGerman()));
 
             if (userAnswers.length) {
                 const answersDiv = document.createElement("div");
@@ -341,7 +355,7 @@ document.getElementById("submit").addEventListener("click", () => {
                     const ansSpan = document.createElement("span");
                     ansSpan.textContent = ans;
 
-                    if (correctSet.has(ans.toLowerCase())) {
+                    if (correctSet.has(ans.normalizeGerman())) {
                         ansSpan.className = "correct";
                     } else {
                         ansSpan.className = "wrong";

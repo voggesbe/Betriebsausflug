@@ -19,7 +19,7 @@ Die Aufteilung in die Autos ist wie folgt. Beachtet bitte, dass die Fahrer dafü
   </div>
   <div class="fahrer">
     <strong>Christian</strong><br>
-    <span>Rainer, Fabian, Iris</span>
+    <span>Rainer, Fabian, Iris, Ansgar</span>
   </div>
   <div class="fahrer">
     <strong>Dominik</strong><br>
