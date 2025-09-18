@@ -231,8 +231,8 @@ document.getElementById("submit").addEventListener("click", () => {
     const resultDiv = document.getElementById("result");
     resultDiv.innerHTML = "";
 
+    // --- Show feedback ---
     quizQuestions.forEach((q, i) => {
-
         const userAnswerRaw = answers[`q${i}`];
         const questionScore = parseFloat(answers[`score_q${i}`]);
         const qNumber = i + 1;
@@ -244,7 +244,7 @@ document.getElementById("submit").addEventListener("click", () => {
         fbTitle.textContent = `${qNumber}. ${q.question}`;
         fbBox.appendChild(fbTitle);
 
-        let userAnswerDisplay = "Nicht beantwortet"; // default if empty
+        let userAnswerDisplay = "Nicht beantwortet";
         let fullyCorrect = false;
 
         if (q.type === "single") {
@@ -252,18 +252,17 @@ document.getElementById("submit").addEventListener("click", () => {
             inputs.forEach(input => input.disabled = true);
 
             if (userAnswerRaw) userAnswerDisplay = userAnswerRaw;
-
             fullyCorrect = userAnswerRaw === q.correct;
 
             inputs.forEach(input => {
                 const label = input.parentElement;
                 const optionText = input.value;
 
+                label.classList.remove("correct", "wrong", "missed");
+
                 if (input.checked && input.value === q.correct) {
-                    label.innerHTML = `✅ ${optionText}`;
                     label.classList.add("correct");
                 } else if (input.checked && input.value !== q.correct) {
-                    label.innerHTML = `❌ ${optionText}`;
                     label.classList.add("wrong");
                 } else if (!input.checked && input.value === q.correct) {
                     label.classList.add("missed");
@@ -282,7 +281,6 @@ document.getElementById("submit").addEventListener("click", () => {
             fullyCorrect = q.correct.every(ans => selectedSet.has(ans)) &&
                 selectedSet.size === q.correct.length;
 
-            // Track feedback categories
             const feedbackRight = [];
             const feedbackMissed = [];
             const feedbackWrong = [];
@@ -291,33 +289,23 @@ document.getElementById("submit").addEventListener("click", () => {
                 const label = input.parentElement;
                 const optionText = input.value;
 
-                label.style.display = "block";
-                label.style.padding = "4px 8px";
-                label.style.borderRadius = "4px";
-                label.style.marginBottom = "2px";
+                label.classList.remove("correct", "wrong", "missed");
 
-                if (input.checked && correctSet.has(input.value)) {
-                    label.innerHTML = `✅ ${optionText}`;
+                if (input.checked && correctSet.has(optionText)) {
                     label.classList.add("correct");
-                    label.style.backgroundColor = "#d4edda"; // light green
                     feedbackRight.push(optionText);
-                } else if (!input.checked && correctSet.has(input.value)) {
-                    label.innerHTML = `⚠️ ${optionText}`;
+                } else if (!input.checked && correctSet.has(optionText)) {
                     label.classList.add("missed");
-                    label.style.backgroundColor = "#fff3cd"; // light yellow
                     feedbackMissed.push(optionText);
-                } else if (input.checked && !correctSet.has(input.value)) {
-                    label.innerHTML = `❌ ${optionText}`;
+                } else if (input.checked && !correctSet.has(optionText)) {
                     label.classList.add("wrong");
-                    label.style.backgroundColor = "#f8d7da"; // light red
                     feedbackWrong.push(optionText);
                 }
             });
 
-            // Add a small summary under the question
+            // Summary line
             const summaryP = document.createElement("p");
-            summaryP.style.fontStyle = "italic";
-            summaryP.style.marginTop = "4px";
+            summaryP.className = "summary";
             summaryP.textContent = `Richtige Antworten ausgewählt: ${feedbackRight.length}/${correctSet.size}` +
                 (feedbackMissed.length ? `, Verpasst: ${feedbackMissed.join(", ")}` : "") +
                 (feedbackWrong.length ? `, Falsch ausgewählt: ${feedbackWrong.join(", ")}` : "");
@@ -328,7 +316,6 @@ document.getElementById("submit").addEventListener("click", () => {
             if (input) input.disabled = true;
             if (input) input.style.display = "none";
 
-            // Normalize userAnswerRaw: it can be a string (from input) or an array (from scoring)
             let userAnswers = [];
             if (Array.isArray(userAnswerRaw)) {
                 userAnswers = userAnswerRaw;
@@ -339,56 +326,51 @@ document.getElementById("submit").addEventListener("click", () => {
                     .filter(Boolean);
             }
 
-            // Display user answer nicely
             if (userAnswers.length) {
                 userAnswerDisplay = userAnswers.join(", ");
             }
 
-            // Determine if fully correct
             const correctSet = new Set(q.correct.map(c => c.toLowerCase()));
             fullyCorrect = userAnswers.length === correctSet.size &&
                 userAnswers.every(ans => correctSet.has(ans.toLowerCase()));
 
-            // Optional: highlight each user answer
             if (userAnswers.length) {
                 const answersDiv = document.createElement("div");
                 answersDiv.style.marginTop = "4px";
                 userAnswers.forEach(ans => {
-                    const ansP = document.createElement("span");
+                    const ansSpan = document.createElement("span");
+                    ansSpan.textContent = ans;
+
                     if (correctSet.has(ans.toLowerCase())) {
-                        ansP.textContent = `✅ ${ans}`;
-                        ansP.style.color = "#28a745";
-                        ansP.style.marginRight = "6px";
+                        ansSpan.className = "correct";
                     } else {
-                        ansP.textContent = `❌ ${ans}`;
-                        ansP.style.color = "#ff4d4d";
-                        ansP.style.marginRight = "6px";
+                        ansSpan.className = "wrong";
                     }
-                    answersDiv.appendChild(ansP);
+                    answersDiv.appendChild(ansSpan);
                 });
                 fbBox.appendChild(answersDiv);
             }
         }
 
-
-        // --- Show user answer ---
+        // User answer
         const userP = document.createElement("p");
         userP.style.fontWeight = "bold";
         userP.style.color = fullyCorrect ? "#28a745" : "#ff6600";
         userP.textContent = `Deine Antwort: ${userAnswerDisplay} (Punkte: ${questionScore} von ${q.points})`;
         fbBox.appendChild(userP);
 
-        // --- Show correct answer only if user answer not fully correct ---
+        // Show correct answer if not fully correct
         if (!fullyCorrect) {
             const correctArray = Array.isArray(q.correct) ? q.correct : [q.correct];
             const correctP = document.createElement("p");
             correctP.textContent = `Richtige Antwort(en): ${correctArray.join(", ")}`;
-            correctP.style.color = "#28a745";
+            correctP.className = "correct"; // apply CSS class
             fbBox.appendChild(correctP);
         }
 
         resultDiv.appendChild(fbBox);
     });
+
 
 
 
