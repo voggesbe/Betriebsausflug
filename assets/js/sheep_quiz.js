@@ -341,11 +341,12 @@ document.getElementById("submit").addEventListener("click", () => {
             }
 
             if (userAnswers.length) {
-                userAnswerDisplay = userAnswers.join(", ");
+                userAnswerDisplay = userAnswerRaw;
             }
 
             const correctSet = new Set(q.correct.map(s => normalizeGerman(s)));
-            fullyCorrect = userAnswers.length === correctSet.size &&
+            const expectedCount = q.expectedCount || 1;
+            fullyCorrect = userAnswers.length === expectedCount &&
                 userAnswers.every(ans => correctSet.has(ans.toLowerCase()));
 
             if (userAnswers.length) {
