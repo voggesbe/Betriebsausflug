@@ -332,39 +332,27 @@ document.getElementById("submit").addEventListener("click", () => {
 
             let userAnswers = [];
             if (Array.isArray(userAnswerRaw)) {
-                userAnswers = userAnswerRaw;
+                userAnswers = userAnswerRaw
+                    .map(s => normalizeGerman(s))
+                    .filter(Boolean);
+                if (userAnswers.length) {
+                    userAnswerDisplay = userAnswerRaw.join(", ");
+                }
             } else if (typeof userAnswerRaw === "string" && userAnswerRaw.trim() !== "") {
+                userAnswerDisplay = userAnswerRaw;
                 userAnswers = userAnswerRaw
                     .split(/,|;|\/|\bund\b|\band\b/i)
                     .map(s => normalizeGerman(s))
                     .filter(Boolean);
             }
 
-            if (userAnswers.length) {
-                userAnswerDisplay = userAnswerRaw;
-            }
+
 
             const correctSet = new Set(q.correct.map(s => normalizeGerman(s)));
             const expectedCount = q.expectedCount || 1;
             fullyCorrect = userAnswers.length === expectedCount &&
                 userAnswers.every(ans => correctSet.has(ans.toLowerCase()));
 
-            if (userAnswers.length) {
-                const answersDiv = document.createElement("div");
-                answersDiv.style.marginTop = "4px";
-                userAnswers.forEach(ans => {
-                    const ansSpan = document.createElement("span");
-                    ansSpan.textContent = ans;
-
-                    if (correctSet.has(ans.toLowerCase())) {
-                        ansSpan.className = "correct";
-                    } else {
-                        ansSpan.className = "wrong";
-                    }
-                    answersDiv.appendChild(ansSpan);
-                });
-                fbBox.appendChild(answersDiv);
-            }
         }
 
         // User answer
