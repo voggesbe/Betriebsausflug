@@ -5,6 +5,7 @@ title: "Fahrgruppen"
 ---
 
 Die Aufteilung in die Autos ist wie folgt. Beachtet bitte, dass die Fahrer dafür verantwortlich sind, dass ihre Mitfahrer immer an Bord sind.
+**Hinweis**: Der Betriebsausflug endet in der Innenstadt. Bitte in Gruppen zusammenfinden, die eventuell davor oder danach bei Codewerk vorbeigehen wenn man zurück muss!
 
 <div class="fahrgruppen">
   <div class="fahrer">
