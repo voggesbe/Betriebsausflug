@@ -191,13 +191,6 @@ document.getElementById("submit").addEventListener("click", () => {
             // all right answers in lower case
             const correctLower = q.correct.map(a => a.toLowerCase());
 
-            // checks if at least one of the user answers is in the list of correct answers
-            if (userAnswers.some(ans => correctLower.includes(ans))) {
-                questionScore = q.points;
-            }
-            else {
-                questionScore = 0;
-            }
             // check if there are incorrect answers
             let incorrectCount = userAnswers.filter(ans => ans && !correctLower.includes(ans)).length;
 
@@ -314,26 +307,22 @@ document.getElementById("submit").addEventListener("click", () => {
         resultDiv.appendChild(fbBox);
     });
 
-    // Gesamtpunktzahl berechnen
-    const totalScorePoints = Object.keys(answers)
-        .filter(key => key.startsWith("score_q"))
-        .reduce((sum, key) => sum + answers[key], 0);
 
     // Gesamtpunktzahl und Bewertungstext anzeigen
     const totalH3 = document.createElement("h3");
     const maxScore = quizQuestions.reduce((sum, q) => sum + q.points, 0);
-    totalH3.textContent = `Gesamtpunkte: ${totalScorePoints}/${maxScore}`;
+    totalH3.textContent = `Gesamtpunkte: ${totalScore}/${maxScore}`;
     totalH3.style.color = "#333";
     totalH3.style.textAlign = "center";
     totalH3.style.marginTop = "1rem";
 
     // Bewertung anhand der Gesamtpunkte
     let bewertung = "";
-    if (totalScorePoints <= 5) {
+    if (totalScore <= 5) {
         bewertung = "Schäfchenzähler";
-    } else if (totalScorePoints <= 12) {
+    } else if (totalScore <= 12) {
         bewertung = "Hütehund-Niveau";
-    } else if (totalScorePoints <= 20) {
+    } else if (totalScore <= 20) {
         bewertung = "Erfahrener Schäfer";
     } else {
         bewertung = "Schafmeister";
