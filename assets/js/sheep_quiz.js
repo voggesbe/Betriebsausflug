@@ -23,9 +23,29 @@ const quizQuestions = [
     },
     {
         type: "text",
+        question: "Zu welcher Tierfamilie gehören Schafe biologisch gesehen?",
+        correct: ["Bovidae (Hornträger)", "Hornträger", "Bovidae"],
+        points: 3
+    },
+    {
+        type: "text",
         question: "Welches Geräusch macht ein Schaf (auf Englisch)?",
         correct: ["baa", "baaa"],
         points: 1
+    },
+    {
+        type: "single",
+        question: "Welche Form haben die Pupillen von Schafen?",
+        options: ["Waagrecht gestellte Schlitze", "Senkrecht gestellte Schlitze", "Runde Pupillen"],
+        correct: ["Waagrecht gestellte Schlitze"],
+        points: 1
+    },
+    {
+        type: "text",
+        question: "Welche zwei Körperteile von Schafen werden häufig zur Unterscheidung verschiedener Rassen und Individuen verwendet?",
+        correct: ["Hörner und Fellfarbe", "Hörner", "Fellfarbe"],
+        expectedCount: 2,
+        points: 2
     },
     {
         type: "single",
@@ -35,25 +55,36 @@ const quizQuestions = [
         points: 1
     },
     {
-        type: "multiple",
-        question: "Welche Tiere leben typischerweise in einer Herde?",
-        options: ["Schaf", "Löwe", "Ziege", "Elefant"],
-        correct: ["Schaf", "Ziege", "Elefant"],
-        points: 3
+        type: "text",
+        question: "Aus Schafsmilch werden viele Käsesorten gemacht. Nenne einen dieser Käse.",
+        correct: [" Feta", "Roquefort", "Pecorino"],
+        points: 2
     },
     {
-        type: "single",
-        question: "Was ist die Lieblingsnahrung von Schafen?",
-        options: ["Gras", "Fleisch", "Obst"],
-        correct: "Gras",
+        type: "text",
+        question: "Welches Schaf wurde 1996 als erstes Säugetier der Welt geklont?",
+        correct: "Dolly",
         points: 1
     },
     {
         type: "text",
-        question: "Auf Deutsch: Wie nennt man einen männlichen Schafbock?",
+        question: "Wie nennt man einen männlichen Schafbock?",
         correct: ["Widder"],
         points: 1
-    }
+    },
+    {
+        type: "text",
+        question: "Welches Land hat weltweit die größte Zahl an Schafen?",
+        correct: "China",
+        points: 3
+    },
+    {
+        type: "single",
+        question: "Wie groß sind traditionelle Herden von Wanderschäfern in Mitteleuropa?",
+        options: ["bis zu 100 Tieren", "bis zu 500 Tieren", "bis über 1000 Tiere"],
+        correct: ["bis über 1000 Tiere"],
+        points: 2
+    },
 ];
 
 // --- Google Script endpoint ---
@@ -146,8 +177,29 @@ document.getElementById("submit").addEventListener("click", () => {
         } else if (q.type === "text") {
             const input = document.querySelector(`input[name="q${i}"]`);
             userAnswer = input.value.trim().toLowerCase();
+
+            // Split the entries if there are more than one answer, seperated by commas and "und"
+            const userAnswers = userAnswerRaw
+                .split(/,|und/)
+                .map(a => a.trim())
+                .filter(a => a.length > 0);
+
+            const expectedCount = q.expectedCount || 1;
+
+            // all right answers in lower case
             const correctLower = q.correct.map(a => a.toLowerCase());
-            if (correctLower.includes(userAnswer)) questionScore = q.points;
+
+            // checks if at least one of the user answers is in the list of correct answers
+            if (userAnswers.some(ans => correctLower.includes(ans))) {
+                questionScore = q.points;
+            }
+            // check if there are incorrect answers
+            let incorrectCount = userAnswers.filter(ans => ans && !correctLower.includes(ans)).length;
+
+            questionScore = q.points - incorrectCount - Math.max(0, expectedCount - userAnswers.length); // subtract points for incorrect answers and missing answers
+
+            // make sure that points don't get negative
+            if (questionScore < 0) questionScore = 0;
         }
 
         totalScore += questionScore;
@@ -218,28 +270,78 @@ document.getElementById("submit").addEventListener("click", () => {
         } else if (q.type === "text") {
             const input = document.querySelector(`input[name="q${i}"]`);
             input.disabled = true;
-            const correctLower = q.correct.map(a => a.toLowerCase());
-            const correct = correctLower.includes(userAnswer);
-            input.style.color = correct ? "green" : "red";
-            input.style.fontWeight = "bold";
 
-            if (!correct) {
+            // Get raw user input and convert to lowercase
+            const userAnswerRaw = input.value.trim().toLowerCase();
+
+            // Split user input by commas and "und", trim spaces, and filter empty entries
+            const userAnswers = userAnswerRaw.split(/,|und/).map(a => a.trim()).filter(Boolean);
+
+            // Lowercase all correct answers for comparison
+            const correctLower = q.correct.map(a => a.toLowerCase());
+
+            // Find which answers are correct and which are incorrect
+            const rightAnswers = userAnswers.filter(ans => correctLower.includes(ans));
+            const wrongAnswers = userAnswers.filter(ans => !correctLower.includes(ans));
+
+            // Hide the input field to show formatted feedback
+            input.style.display = "none";
+
+            // Create a colored response list: green for correct, red for incorrect
+            const responseDiv = document.createElement("div");
+            responseDiv.innerHTML = rightAnswers.map(a => `<span style="color:green; font-weight:bold;">${a}</span>`)
+                .concat(wrongAnswers.map(a => `<span style="color:red; font-weight:bold;">${a}</span>`))
+                .join(", ");
+            fbBox.appendChild(responseDiv);
+
+            // Show correct answers and points if user's answer is not fully correct
+            if (rightAnswers.length !== correctLower.length || wrongAnswers.length > 0) {
                 const p = document.createElement("p");
-                p.textContent = `Richtige Antwort: ${q.correct.join(", ")} (Punkte: ${questionScore})`;
+                p.textContent = `Correct answer(s): ${q.correct.join(", ")} (Points: ${questionScore})`;
                 p.style.color = "#ff6600";
                 fbBox.appendChild(p);
             }
         }
 
+
         resultDiv.appendChild(fbBox);
     });
 
+    // Gesamtpunktzahl berechnen
+    const totalScorePoints = Object.keys(answers)
+        .filter(key => key.startsWith("score_q"))
+        .reduce((sum, key) => sum + answers[key], 0);
+
+    // Gesamtpunktzahl und Bewertungstext anzeigen
     const totalH3 = document.createElement("h3");
-    totalH3.textContent = `Gesamtpunkte: ${totalScore.toFixed(2)}/${quizQuestions.reduce((sum, q) => sum + q.points, 0)}`;
+    const maxScore = quizQuestions.reduce((sum, q) => sum + q.points, 0);
+    totalH3.textContent = `Gesamtpunkte: ${totalScorePoints}/${maxScore}`;
     totalH3.style.color = "#333";
     totalH3.style.textAlign = "center";
     totalH3.style.marginTop = "1rem";
+
+    // Bewertung anhand der Gesamtpunkte
+    let bewertung = "";
+    if (totalScorePoints <= 5) {
+        bewertung = "Schäfchenzähler";
+    } else if (totalScorePoints <= 12) {
+        bewertung = "Hütehund-Niveau";
+    } else if (totalScorePoints <= 20) {
+        bewertung = "Erfahrener Schäfer";
+    } else {
+        bewertung = "Schafmeister";
+    }
+
+    const bewertungP = document.createElement("p");
+    bewertungP.textContent = `Bewertung: ${bewertung}`;
+    bewertungP.style.textAlign = "center";
+    bewertungP.style.fontWeight = "bold";
+    bewertungP.style.marginTop = "0.3rem";
+
     resultDiv.appendChild(totalH3);
+    resultDiv.appendChild(bewertungP);
+
+
 
     // --- Send results to Google Sheets ---
     fetch(endpoint, {
