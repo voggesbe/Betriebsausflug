@@ -4,7 +4,7 @@ body.dark-mode {
     color: #e0e0e0;
 }
 
-/* Main content container */
+/* --- Main Content & Containers --- */
 body.dark-mode .main-content,
 body.dark-mode #quiz-container {
     background-color: #2b2b2b;
@@ -13,7 +13,7 @@ body.dark-mode #quiz-container {
     border-radius: 8px;
 }
 
-/* Headings */
+/* --- Headings --- */
 body.dark-mode h1 {
     color: #cfcfd3;
 }
@@ -29,20 +29,19 @@ body.dark-mode h6 {
     color: #d0d0d0;
 }
 
-/* Paragraphs */
+/* --- Paragraphs & Strong Text --- */
 body.dark-mode p.intro,
 body.dark-mode p.note {
     color: #bbb;
 }
 
-/* Strong text */
 body.dark-mode strong,
 body.dark-mode .fahrer strong {
     color: #ffd966;
     font-weight: 700;
 }
 
-/* --- Timeslot list --- */
+/* --- Timeslot List --- */
 body.dark-mode #timeslot-list li {
     background: #1d1d1d;
     border-left-width: 5px;
@@ -67,15 +66,13 @@ body.dark-mode #timeslot-list li.surprise {
 }
 
 /* --- Forms & Inputs --- */
-body.dark-mode form,
-form.dark-mode {
+body.dark-mode form {
     background-color: #222;
     padding: 1rem;
     border-radius: 6px;
 }
 
-body.dark-mode form label,
-label.dark-mode {
+body.dark-mode form label {
     color: #ccc;
     display: block;
     margin-top: 1rem;
@@ -84,8 +81,7 @@ label.dark-mode {
 body.dark-mode form input[type="text"],
 body.dark-mode form input[type="email"],
 body.dark-mode form textarea,
-body.dark-mode form select,
-body.dark-mode #quiz-container .answers input[type="text"] {
+body.dark-mode form select {
     background-color: #333;
     color: #eee;
     border: 1px solid #555;
@@ -94,26 +90,21 @@ body.dark-mode #quiz-container .answers input[type="text"] {
     width: 100%;
     box-sizing: border-box;
     font-family: inherit;
-    font-size: inherit;
+    font-size: 1rem;
 }
+
 body.dark-mode input::placeholder,
-body.dark-mode textarea::placeholder,
-body.dark-mode #quiz-container .answers input[type="text"]::placeholder {
+body.dark-mode textarea::placeholder {
     color: #aaa;
 }
+
 body.dark-mode input:focus,
 body.dark-mode select:focus,
-body.dark-mode textarea:focus,
-body.dark-mode #quiz-container .answers input[type="text"]:focus {
+body.dark-mode textarea:focus {
     border-color: #4da3ff;
     background-color: #444;
     color: #fff;
     outline: none;
-}
-body.dark-mode #quiz-container .answers input[type="text"]:disabled {
-    background-color: #2a2a2a;
-    color: #888;
-    border-color: #444;
 }
 
 /* Submit button */
@@ -131,7 +122,7 @@ body.dark-mode form button[type="submit"]:hover {
     background-color: #777;
 }
 
-/* Dark mode toggle */
+/* --- Dark Mode Toggle --- */
 #dark-mode-toggle {
     padding: 0.5em 1em;
     border: none;
@@ -155,28 +146,53 @@ body:not(.dark-mode) #dark-mode-toggle {
     color: #222;
 }
 
-/* --- Quiz & Answers --- */
+/* --- Quiz Section --- */
 body.dark-mode .question {
     color: #eee;
 }
-body.dark-mode .answers label {
+
+body.dark-mode #quiz-container .answers label {
     display: flex;
     align-items: center;
     padding: 0.5rem 0.8rem;
-    background-color: #3a3a3a;
+    background-color: #3d3d3d; /* lighter for readability */
     border: 1px solid #555;
     border-radius: 6px;
-    color: #ddd;
+    color: #eee;
     cursor: pointer;
     transition:
         background-color 0.3s ease,
         border-color 0.3s ease;
 }
-body.dark-mode .answers label:hover {
-    background-color: #444;
+body.dark-mode #quiz-container .answers label:hover {
+    background-color: #4a4a4a;
 }
 
-/* Answer highlights */
+body.dark-mode #quiz-container .answers input[type="text"] {
+    background-color: #333;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 0.4rem 0.6rem;
+    font-family: inherit;
+    font-size: 1rem;
+}
+body.dark-mode #quiz-container .answers input[type="text"]:focus {
+    border-color: #4da3ff;
+    background-color: #444;
+    color: #fff;
+    outline: none;
+}
+body.dark-mode #quiz-container .answers input[type="text"]::placeholder {
+    color: #aaa;
+}
+body.dark-mode #quiz-container .answers input[type="text"]:disabled {
+    background-color: #2a2a2a;
+    color: #888;
+    border-color: #444;
+}
+
+/* --- Quiz Answer Highlights --- */
 body.dark-mode .answers label.correct {
     background-color: #155724;
     color: #d4edda;
@@ -248,7 +264,7 @@ body.dark-mode #result h3 {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Rating boxes */
+/* --- Rating Boxes --- */
 body.dark-mode #result > div.rating-box {
     padding: 1rem;
     border-radius: 12px;
