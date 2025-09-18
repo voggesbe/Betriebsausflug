@@ -281,21 +281,47 @@ document.getElementById("submit").addEventListener("click", () => {
             fullyCorrect = q.correct.every(ans => selectedSet.has(ans)) &&
                 selectedSet.size === q.correct.length;
 
+            // Track feedback categories
+            const feedbackRight = [];
+            const feedbackMissed = [];
+            const feedbackWrong = [];
+
             inputs.forEach(input => {
                 const label = input.parentElement;
                 const optionText = input.value;
 
+                label.style.display = "block";
+                label.style.padding = "4px 8px";
+                label.style.borderRadius = "4px";
+                label.style.marginBottom = "2px";
+
                 if (input.checked && correctSet.has(input.value)) {
                     label.innerHTML = `✅ ${optionText}`;
                     label.classList.add("correct");
+                    label.style.backgroundColor = "#d4edda"; // light green
+                    feedbackRight.push(optionText);
                 } else if (!input.checked && correctSet.has(input.value)) {
                     label.innerHTML = `⚠️ ${optionText}`;
                     label.classList.add("missed");
+                    label.style.backgroundColor = "#fff3cd"; // light yellow
+                    feedbackMissed.push(optionText);
                 } else if (input.checked && !correctSet.has(input.value)) {
                     label.innerHTML = `❌ ${optionText}`;
                     label.classList.add("wrong");
+                    label.style.backgroundColor = "#f8d7da"; // light red
+                    feedbackWrong.push(optionText);
                 }
             });
+
+            // Add a small summary under the question
+            const summaryP = document.createElement("p");
+            summaryP.style.fontStyle = "italic";
+            summaryP.style.marginTop = "4px";
+            summaryP.textContent = `Richtige Antworten ausgewählt: ${feedbackRight.length}/${correctSet.size}` +
+                (feedbackMissed.length ? `, Verpasst: ${feedbackMissed.join(", ")}` : "") +
+                (feedbackWrong.length ? `, Falsch ausgewählt: ${feedbackWrong.join(", ")}` : "");
+            fbBox.appendChild(summaryP);
+
         } else if (q.type === "text") {
             const input = document.querySelector(`input[name="q${i}"]`);
             input.disabled = true;
