@@ -1,49 +1,84 @@
-/* --- Dark Mode Base --- */
+/* --- Dark Mode Variables --- */
 body.dark-mode {
-    background-color: #222;
-    color: #e0e0e0;
+    --bg-main: #222;
+    --bg-container: #2b2b2b;
+    --bg-card: #1d1d1d;
+    --bg-card-alt: #2a2030;
+    --bg-input: #333;
+    --bg-input-focus: #444;
+    --bg-quiz-choice: #3d3d3d;
+    --bg-quiz-choice-hover: #4a4a4a;
+
+    --text-primary: #e0e0e0;
+    --text-secondary: #bbb;
+    --text-heading1: #cfcfd3;
+    --text-heading2: #f0f0f0;
+    --text-heading3: #e0e0e0;
+    --text-heading4-6: #d0d0d0;
+    --text-strong: #ffd966;
+    --text-feedback-correct: #d4edda;
+    --text-feedback-wrong: #f8d7da;
+    --text-feedback-missed: #fff3cd;
+
+    --border-main: #555;
+    --border-feedback: #444;
+
+    --highlight-meeting: #3399cc;
+    --highlight-dinner: #ff9966;
+    --highlight-surprise: #cc66cc;
+    --highlight-correct: #28a745;
+    --highlight-wrong: #dc3545;
+    --highlight-missed: #ffc107;
+    --highlight-submit-hover: #777;
+
+    --placeholder: #aaa;
+}
+
+/* --- Base --- */
+body.dark-mode {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
 }
 
 /* --- Main Content & Containers --- */
 body.dark-mode .main-content,
 body.dark-mode #quiz-container {
-    background-color: #2b2b2b;
-    color: #ddd;
-    border: 1px solid #555;
+    background-color: var(--bg-container);
+    color: var(--text-primary);
+    border: 1px solid var(--border-main);
     border-radius: 8px;
 }
 
 /* --- Headings --- */
 body.dark-mode h1 {
-    color: #cfcfd3;
+    color: var(--text-heading1);
 }
 body.dark-mode h2 {
-    color: #f0f0f0;
+    color: var(--text-heading2);
 }
 body.dark-mode h3 {
-    color: #e0e0e0;
+    color: var(--text-heading3);
 }
 body.dark-mode h4,
 body.dark-mode h5,
 body.dark-mode h6 {
-    color: #d0d0d0;
+    color: var(--text-heading4-6);
 }
 
 /* --- Paragraphs & Strong Text --- */
 body.dark-mode p.intro,
 body.dark-mode p.note {
-    color: #bbb;
+    color: var(--text-secondary);
 }
-
 body.dark-mode strong,
 body.dark-mode .fahrer strong {
-    color: #ffd966;
+    color: var(--text-strong);
     font-weight: 700;
 }
 
 /* --- Timeslot List --- */
 body.dark-mode #timeslot-list li {
-    background: #1d1d1d;
+    background: var(--bg-card);
     border-left-width: 5px;
     box-shadow: none;
 }
@@ -54,15 +89,15 @@ body.dark-mode #timeslot-list li em {
     color: #bbb;
 }
 body.dark-mode #timeslot-list li.meeting {
-    border-color: #3399cc;
+    border-color: var(--highlight-meeting);
 }
 body.dark-mode #timeslot-list li.dinner {
-    border-color: #ff9966;
+    border-color: var(--highlight-dinner);
 }
 body.dark-mode #timeslot-list li.surprise {
-    border-color: #cc66cc;
-    background: #2a2030;
-    color: #ddd;
+    border-color: var(--highlight-surprise);
+    background: var(--bg-card-alt);
+    color: var(--text-primary);
 }
 
 /* --- Forms & All Text Inputs --- */
@@ -70,9 +105,9 @@ body.dark-mode input[type="text"],
 body.dark-mode input[type="email"],
 body.dark-mode textarea,
 body.dark-mode select {
-    background-color: #333;
-    color: #eee;
-    border: 1px solid #555;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-main);
     border-radius: 4px;
     padding: 0.4rem 0.6rem;
     font-family: inherit;
@@ -83,9 +118,9 @@ body.dark-mode select {
 
 body.dark-mode input::placeholder,
 body.dark-mode textarea::placeholder {
-    color: #aaa;
-    font-size: 1rem; /* match input font size */
-    opacity: 1; /* ensures consistency across browsers */
+    color: var(--placeholder);
+    font-size: 1rem;
+    opacity: 1;
 }
 
 body.dark-mode input[type="text"]:focus,
@@ -93,15 +128,15 @@ body.dark-mode input[type="email"]:focus,
 body.dark-mode textarea:focus,
 body.dark-mode select:focus {
     border-color: #4da3ff;
-    background-color: #444;
+    background-color: var(--bg-input-focus);
     color: #fff;
     outline: none;
 }
 
 /* --- Submit Button --- */
 body.dark-mode form button[type="submit"] {
-    background-color: #555;
-    color: #eee;
+    background-color: var(--border-main);
+    color: var(--text-primary);
     border: none;
     padding: 0.6rem 1.2rem;
     border-radius: 4px;
@@ -110,7 +145,7 @@ body.dark-mode form button[type="submit"] {
     transition: background-color 0.3s ease;
 }
 body.dark-mode form button[type="submit"]:hover {
-    background-color: #777;
+    background-color: var(--highlight-submit-hover);
 }
 
 /* --- Dark Mode Toggle --- */
@@ -139,71 +174,68 @@ body:not(.dark-mode) #dark-mode-toggle {
 
 /* --- Quiz Section --- */
 body.dark-mode .question {
-    color: #eee;
+    color: var(--text-primary);
 }
 
 body.dark-mode #quiz-container .answers label {
     display: flex;
     align-items: center;
     padding: 0.5rem 0.8rem;
-    background-color: #3d3d3d; /* readable choice background */
-    border: 1px solid #555;
+    background-color: var(--bg-quiz-choice);
+    border: 1px solid var(--border-main);
     border-radius: 6px;
-    color: #eee;
+    color: var(--text-primary);
     cursor: pointer;
     transition:
         background-color 0.3s ease,
         border-color 0.3s ease;
 }
 body.dark-mode #quiz-container .answers label:hover {
-    background-color: #4a4a4a;
+    background-color: var(--bg-quiz-choice-hover);
 }
 
 body.dark-mode #quiz-container .answers input[type="text"] {
-    background-color: #333;
-    color: #eee;
-    border: 1px solid #555;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-main);
     border-radius: 4px;
     padding: 0.4rem 0.6rem;
     font-family: inherit;
     font-size: 1rem;
     width: 100%;
 }
-
 body.dark-mode #quiz-container .answers input[type="text"]::placeholder {
-    color: #aaa;
+    color: var(--placeholder);
     font-size: 1rem;
     opacity: 1;
 }
-
 body.dark-mode #quiz-container .answers input[type="text"]:focus {
     border-color: #4da3ff;
-    background-color: #444;
+    background-color: var(--bg-input-focus);
     color: #fff;
     outline: none;
 }
-
 body.dark-mode #quiz-container .answers input[type="text"]:disabled {
     background-color: #2a2a2a;
     color: #888;
-    border-color: #444;
+    border-color: var(--border-feedback);
 }
 
 /* --- Quiz Answer Highlights --- */
 body.dark-mode .answers label.correct {
     background-color: #155724;
-    color: #d4edda;
-    border-color: #28a745;
+    color: var(--text-feedback-correct);
+    border-color: var(--highlight-correct);
 }
 body.dark-mode .answers label.wrong {
     background-color: #721c24;
-    color: #f8d7da;
-    border-color: #dc3545;
+    color: var(--text-feedback-wrong);
+    border-color: var(--highlight-wrong);
 }
 body.dark-mode .answers label.missed {
     background-color: #856404;
-    color: #fff3cd;
-    border-color: #ffc107;
+    color: var(--text-feedback-missed);
+    border-color: var(--highlight-missed);
 }
 body.dark-mode .answers label.correct:hover,
 body.dark-mode .answers label.wrong:hover,
@@ -214,47 +246,47 @@ body.dark-mode .answers label.missed:hover {
 
 /* --- Feedback Boxes --- */
 body.dark-mode .feedback-box {
-    background-color: #2a2a2a;
-    border: 1px solid #444;
+    background-color: var(--bg-input-focus);
+    border: 1px solid var(--border-feedback);
     border-radius: 8px;
     padding: 1rem;
-    color: #e0e0e0;
+    color: var(--text-primary);
 }
 body.dark-mode .feedback-box h4 {
-    color: #28a745;
+    color: var(--highlight-correct);
 }
 body.dark-mode .feedback-box p {
-    color: #ddd;
+    color: var(--text-primary);
 }
 body.dark-mode .feedback-box p.summary {
-    color: #aaa;
+    color: var(--text-secondary);
     font-style: italic;
 }
 body.dark-mode .feedback-box span.correct {
     background-color: #0b3d0b;
-    color: #d4edda;
+    color: var(--text-feedback-correct);
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
 }
 body.dark-mode .feedback-box span.wrong {
     background-color: #4b1a1a;
-    color: #f8d7da;
+    color: var(--text-feedback-wrong);
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
 }
 body.dark-mode .feedback-box span.missed {
     background-color: #5a4700;
-    color: #fff3cd;
+    color: var(--text-feedback-missed);
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
 }
 
 /* --- Result / Gesamtpunkte --- */
 body.dark-mode #result {
-    color: #ffd966;
+    color: var(--text-strong);
 }
 body.dark-mode #result h3 {
-    color: #ffd966;
+    color: var(--text-strong);
     text-align: center;
     font-size: 1.4rem;
     margin-top: 1.5rem;
@@ -289,7 +321,7 @@ body.dark-mode #result > div.rating-box.master {
 
 /* --- Fahrer Grid --- */
 body.dark-mode .fahrer {
-    background: #1d1d1d;
-    color: #e0e0e0;
+    background: var(--bg-card);
+    color: var(--text-primary);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
