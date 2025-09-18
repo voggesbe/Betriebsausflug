@@ -228,13 +228,12 @@ document.getElementById("submit").addEventListener("click", () => {
     });
 
     // --- Show feedback ---
-    // --- Show feedback ---
     const resultDiv = document.getElementById("result");
     resultDiv.innerHTML = "";
 
     quizQuestions.forEach((q, i) => {
         const userAnswer = answers[`q${i}`];
-        const questionScore = answers[`score_q${i}`];
+        const questionScore = parseFloat(answers[`score_q${i}`]);
         const qNumber = i + 1;
 
         const fbBox = document.createElement("div");
@@ -244,54 +243,77 @@ document.getElementById("submit").addEventListener("click", () => {
         fbTitle.textContent = `${qNumber}. ${q.question}`;
         fbBox.appendChild(fbTitle);
 
-        if (q.type === "single") {
-            const inputs = document.querySelectorAll(`input[name="q${i}"]`);
-            inputs.forEach(input => input.disabled = true);
-            inputs.forEach(input => {
-                const label = input.parentElement;
-                if (input.value === q.correct) {
-                    label.style.color = "green";
-                    label.style.fontWeight = "bold";
-                    label.innerHTML = `✅ ${label.textContent}`;
-                } else if (input.checked && input.value !== q.correct) {
-                    label.style.color = "red";
-                    label.style.fontWeight = "bold";
-                    label.innerHTML = `❌ ${label.textContent}`;
-                }
-            });
-
-            // Always show correct answer
+        const showCorrectAnswers = () => {
             const p = document.createElement("p");
-            p.textContent = `Richtige Antwort: ${q.correct} (Punkte: ${questionScore})`;
+            const correctArray = Array.isArray(q.correct) ? q.correct : [q.correct];
+            p.textContent = `Richtige Antwort(en): ${correctArray.join(", ")} (Punkte: ${questionScore})`;
             p.style.color = "#ff6600";
             p.style.fontSize = "inherit";
             fbBox.appendChild(p);
+        };
+
+        if (q.type === "single") {
+            const inputs = document.querySelectorAll(`input[name="q${i}"]`);
+            inputs.forEach(input => input.disabled = true);
+
+            inputs.forEach(input => {
+                const label = input.parentElement;
+
+                // Add icons as before
+                if (input.value === q.correct) {
+                    label.innerHTML = `✅ ${label.textContent}`;
+                    label.style.color = "green";
+                    label.style.fontWeight = "bold";
+                } else if (input.checked && input.value !== q.correct) {
+                    label.innerHTML = `❌ ${label.textContent}`;
+                    label.style.color = "red";
+                    label.style.fontWeight = "bold";
+                }
+
+                // <-- Add the class highlighting here
+                if (input.value === q.correct) {
+                    label.classList.add("correct");
+                } else if (input.checked && input.value !== q.correct) {
+                    label.classList.add("wrong");
+                }
+                // End of class highlighting
+            });
+
+            if (userAnswer !== q.correct) showCorrectAnswers();
+
 
         } else if (q.type === "multiple") {
             const inputs = document.querySelectorAll(`input[name="q${i}"]`);
             inputs.forEach(input => input.disabled = true);
             const correctSet = new Set(q.correct);
 
+            let fullyCorrect = true;
+
             inputs.forEach(input => {
                 const label = input.parentElement;
+
                 if (input.checked && correctSet.has(input.value)) {
-                    label.style.color = "green";
                     label.innerHTML = `✅ ${label.textContent}`;
+                    label.classList.add("correct");   // <-- add here
                 } else if (!input.checked && correctSet.has(input.value)) {
-                    label.style.color = "orange";
-                    label.innerHTML = `⚠️ ${label.textContent}`; // missed
+                    label.innerHTML = `⚠️ ${label.textContent}`;
+                    label.classList.add("missed");    // <-- add here
+                    fullyCorrect = false;
                 } else if (input.checked && !correctSet.has(input.value)) {
-                    label.style.color = "red";
                     label.innerHTML = `❌ ${label.textContent}`;
+                    label.classList.add("wrong");     // <-- add here
+                    fullyCorrect = false;
                 }
             });
 
-            // Always show correct answers
-            const p = document.createElement("p");
-            p.textContent = `Richtige Antwort(en): ${q.correct.join(", ")} (Punkte: ${questionScore})`;
-            p.style.color = "#ff6600";
-            p.style.fontSize = "inherit";
-            fbBox.appendChild(p);
+            // Only show full correct answers if not fully correct
+            if (!fullyCorrect) {
+                const p = document.createElement("p");
+                p.textContent = `Richtige Antwort(en): ${q.correct.join(", ")} (Punkte: ${questionScore})`;
+                p.style.color = "#ff6600";
+                p.style.fontSize = "inherit";
+                fbBox.appendChild(p);
+            }
 
         } else if (q.type === "text") {
             const input = document.querySelector(`input[name="q${i}"]`);
@@ -308,29 +330,25 @@ document.getElementById("submit").addEventListener("click", () => {
 
             input.style.display = "none";
 
+            let fullyCorrect = rightAnswers.length === correctArray.length && wrongAnswers.length === 0;
+
             const responseDiv = document.createElement("div");
             responseDiv.style.fontSize = "inherit";
 
             const userFeedback = rightAnswers.map(ans => {
                 const original = correctArray.find(c => c.toLowerCase() === ans);
                 return `<span style="color:green; font-weight:bold;">✅ ${original}</span>`;
-            }).concat(wrongAnswers.map(ans => {
-                return `<span style="color:red; font-weight:bold;">❌ ${ans}</span>`;
-            })).join(", ");
+            }).concat(wrongAnswers.map(ans => `<span style="color:red; font-weight:bold;">❌ ${ans}</span>`)).join(", ");
 
             responseDiv.innerHTML = userFeedback;
             fbBox.appendChild(responseDiv);
 
-            // Always show full correct answers
-            const p = document.createElement("p");
-            p.textContent = `Richtige Antwort(en): ${correctArray.join(", ")} (Punkte: ${questionScore})`;
-            p.style.color = "#ff6600";
-            p.style.fontSize = "inherit";
-            fbBox.appendChild(p);
+            if (!fullyCorrect) showCorrectAnswers();
         }
 
         resultDiv.appendChild(fbBox);
     });
+
 
     // Gesamtpunktzahl und Bewertungstext anzeigen
     const totalH3 = document.createElement("h3");

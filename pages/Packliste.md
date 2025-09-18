@@ -25,6 +25,7 @@ Für Mittagessen und Snacks ist gesorgt – aber denkt an euch und das Wetter! �
 - **Taschentücher**
 - **Sonnenbrille**
 - **Powerbank für’s Handy**
+- **Sitzkissen oder Decke** (falls ihr euch hinsetzen und ausruhen wollt)
 
 ---
 
