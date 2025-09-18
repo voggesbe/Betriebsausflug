@@ -4,11 +4,11 @@
 @import "variables"; // if you have _variables.scss in _sass/
 @import "normalize"; // same for other partials
 @import "jekyll-theme-cayman"; // optional
-@import "dark-mode-style";
 @import "questionnaire";
 @import "sheep_quiz";
 @import "fahrgruppen";
 @import "link_grid";
+@import "dark-mode-style";
 
 #timeslot-list {
     list-style-type: none;
