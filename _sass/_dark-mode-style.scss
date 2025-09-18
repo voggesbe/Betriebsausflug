@@ -4,7 +4,7 @@ body.dark-mode {
     color: #e0e0e0;
 }
 
-/* --- Main Containers --- */
+/* Main content container */
 body.dark-mode .main-content,
 body.dark-mode #quiz-container {
     background-color: #2b2b2b;
@@ -13,15 +13,152 @@ body.dark-mode #quiz-container {
     border-radius: 8px;
 }
 
-/* Quiz Labels and Questions */
-body.dark-mode #quiz-container label {
-    color: #ccc;
+/* Headings */
+body.dark-mode h1 {
+    color: #cfcfd3;
 }
+body.dark-mode h2 {
+    color: #f0f0f0;
+}
+body.dark-mode h3 {
+    color: #e0e0e0;
+}
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #d0d0d0;
+}
+
+/* Paragraphs */
+body.dark-mode p.intro,
+body.dark-mode p.note {
+    color: #bbb;
+}
+
+/* Strong text */
+body.dark-mode strong,
+body.dark-mode .fahrer strong {
+    color: #ffd966;
+    font-weight: 700;
+}
+
+/* --- Timeslot list --- */
+body.dark-mode #timeslot-list li {
+    background: #1d1d1d;
+    border-left-width: 5px;
+    box-shadow: none;
+}
+body.dark-mode #timeslot-list li strong {
+    color: #ddd;
+}
+body.dark-mode #timeslot-list li em {
+    color: #bbb;
+}
+body.dark-mode #timeslot-list li.meeting {
+    border-color: #3399cc;
+}
+body.dark-mode #timeslot-list li.dinner {
+    border-color: #ff9966;
+}
+body.dark-mode #timeslot-list li.surprise {
+    border-color: #cc66cc;
+    background: #2a2030;
+    color: #ddd;
+}
+
+/* --- Forms & Inputs --- */
+body.dark-mode form,
+form.dark-mode {
+    background-color: #222;
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+body.dark-mode form label,
+label.dark-mode {
+    color: #ccc;
+    display: block;
+    margin-top: 1rem;
+}
+
+body.dark-mode form input[type="text"],
+body.dark-mode form input[type="email"],
+body.dark-mode form textarea,
+body.dark-mode form select,
+body.dark-mode #quiz-container .answers input[type="text"] {
+    background-color: #333;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 0.4rem 0.6rem;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 1rem;
+}
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder,
+body.dark-mode #quiz-container .answers input[type="text"]::placeholder {
+    color: #aaa;
+}
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus,
+body.dark-mode #quiz-container .answers input[type="text"]:focus {
+    border-color: #4da3ff;
+    background-color: #444;
+    color: #fff;
+    outline: none;
+}
+body.dark-mode #quiz-container .answers input[type="text"]:disabled {
+    background-color: #2a2a2a;
+    color: #888;
+    border-color: #444;
+}
+
+/* Submit button */
+body.dark-mode form button[type="submit"] {
+    background-color: #555;
+    color: #eee;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background-color 0.3s ease;
+}
+body.dark-mode form button[type="submit"]:hover {
+    background-color: #777;
+}
+
+/* Dark mode toggle */
+#dark-mode-toggle {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 6px;
+    background-color: transparent;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1em;
+    transition:
+        background-color 0.3s,
+        color 0.3s;
+}
+#dark-mode-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+body.dark-mode #dark-mode-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+body:not(.dark-mode) #dark-mode-toggle {
+    background-color: #eee;
+    color: #222;
+}
+
+/* --- Quiz & Answers --- */
 body.dark-mode .question {
     color: #eee;
 }
-
-/* --- Answers --- */
 body.dark-mode .answers label {
     display: flex;
     align-items: center;
@@ -39,7 +176,7 @@ body.dark-mode .answers label:hover {
     background-color: #444;
 }
 
-/* Answer Highlights After Submission */
+/* Answer highlights */
 body.dark-mode .answers label.correct {
     background-color: #155724;
     color: #d4edda;
@@ -60,41 +197,6 @@ body.dark-mode .answers label.wrong:hover,
 body.dark-mode .answers label.missed:hover {
     background-color: inherit;
     cursor: default;
-}
-
-/* --- Text Inputs (Quiz & Forms) --- */
-body.dark-mode input[type="text"],
-body.dark-mode input[type="email"],
-body.dark-mode textarea,
-body.dark-mode select,
-body.dark-mode #quiz-container .answers input[type="text"] {
-    background-color: #333;
-    color: #eee;
-    border: 1px solid #555;
-    border-radius: 4px;
-    padding: 0.4rem 0.6rem;
-    box-sizing: border-box;
-    font-family: inherit;
-    font-size: 1rem;
-}
-body.dark-mode #quiz-container .answers input[type="text"]:focus,
-body.dark-mode input[type="text"]:focus,
-body.dark-mode textarea:focus,
-body.dark-mode select:focus {
-    border-color: #4da3ff;
-    background-color: #444;
-    color: #fff;
-    outline: none;
-}
-body.dark-mode input::placeholder,
-body.dark-mode textarea::placeholder,
-body.dark-mode #quiz-container .answers input[type="text"]::placeholder {
-    color: #aaa;
-}
-body.dark-mode #quiz-container .answers input[type="text"]:disabled {
-    background-color: #2a2a2a;
-    color: #888;
-    border-color: #444;
 }
 
 /* --- Feedback Boxes --- */
@@ -146,7 +248,7 @@ body.dark-mode #result h3 {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* --- Rating Boxes --- */
+/* Rating boxes */
 body.dark-mode #result > div.rating-box {
     padding: 1rem;
     border-radius: 12px;
@@ -170,4 +272,11 @@ body.dark-mode #result > div.rating-box.farmer {
 body.dark-mode #result > div.rating-box.master {
     background-color: #222;
     color: #ffe5b4;
+}
+
+/* --- Fahrer Grid --- */
+body.dark-mode .fahrer {
+    background: #1d1d1d;
+    color: #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
