@@ -392,3 +392,48 @@ body.dark-mode .answers label.missed:hover {
     background-color: inherit;
     cursor: default;
 }
+
+/* Gesamtpunkte / total score */
+body.dark-mode #result h3 {
+    color: #ffd966; /* warm gold for high contrast */
+    text-align: center;
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+}
+
+/* Rating box at the end of the quiz */
+body.dark-mode #result > div.rating-box {
+    color: #222; /* keep text readable against background */
+    font-weight: bold;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+/* Different categories with brighter backgrounds for dark mode */
+body.dark-mode #result > div.rating-box.sheep {
+    background-color: #555555; /* dark gray */
+    color: #fff8c4; /* bright warm yellow */
+}
+
+body.dark-mode #result > div.rating-box.dog {
+    background-color: #444444; /* darker gray */
+    color: #cce5ff; /* bright blue */
+}
+
+body.dark-mode #result > div.rating-box.farmer {
+    background-color: #333333; /* dark greenish-gray */
+    color: #d4edda; /* bright green */
+}
+
+body.dark-mode #result > div.rating-box.master {
+    background-color: #222222; /* very dark gray */
+    color: #ffe5b4; /* bright gold */
+}
+
+/* Optional: add a subtle box-shadow for extra contrast */
+body.dark-mode #result h3,
+body.dark-mode #result > div.rating-box {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
