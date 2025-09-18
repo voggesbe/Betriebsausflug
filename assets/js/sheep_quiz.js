@@ -405,9 +405,11 @@ document.getElementById("submit").addEventListener("click", () => {
 
     // Container for rating
     const ratingDiv = document.createElement("div");
-    ratingDiv.className = `rating-box ${ratingClass}`; // assign CSS class
-    ratingDiv.textContent = `${icon} ${bewertung}`;
+    ratingDiv.classList.add("rating-box", ratingClass);
+    ratingDiv.textContent = bewertung;
 
+    // Append to result
+    resultDiv.appendChild(totalH3);
     resultDiv.appendChild(ratingDiv);
 
 
