@@ -79,53 +79,97 @@
     color: #333;
 }
 
+/* Feedback container for each question */
 .feedback-box {
-    background-color: #f1f9f1; /* slightly lighter than quiz container */
-    border: 1px solid #cde6cd;
+    background-color: #f1f9f1; /* light greenish background */
+    border: 1px solid #cde6cd; /* subtle border */
     border-radius: 8px;
-    padding: 0.8rem 1rem;
-    margin: 0.7rem 0;
+    padding: 1rem;
+    margin: 0.8rem 0;
     font-size: 1rem;
     color: #333;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
+/* Question title inside feedback */
 .feedback-box h4 {
-    margin: 0 0 0.3rem 0;
+    margin: 0 0 0.5rem 0;
     font-weight: bold;
-    color: #28a745; /* title color for question */
-    font-size: 1.05rem;
+    color: #28a745;
+    font-size: 1.1rem;
 }
 
+/* Paragraphs inside feedback */
 .feedback-box p {
-    margin: 0.3rem 0;
+    margin: 0.4rem 0;
     font-size: 1rem;
 }
 
-/* Colored icons for answers in feedback */
+/* Highlighted user answers inside feedback */
 .feedback-box span {
     display: inline-block;
     margin-right: 0.5rem;
     font-weight: bold;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
 }
 
-/* Specific colors for feedback icons */
-.feedback-box span:contains("✅") {
-    color: green;
+/* Colored icons for answers in feedback */
+.feedback-box span.correct {
+    color: #155724;
+    background-color: #d4edda; /* light green */
 }
-.feedback-box span:contains("❌") {
-    color: red;
+
+.feedback-box span.wrong {
+    color: #721c24;
+    background-color: #f8d7da; /* light red */
 }
-.feedback-box span:contains("⚠️") {
-    color: orange;
+
+.feedback-box span.missed {
+    color: #856404;
+    background-color: #fff3cd; /* light yellow */
+}
+
+/* Small summary under multiple-choice feedback */
+.feedback-box p.summary {
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    color: #555;
 }
 
 /* Rating box at the end */
-#result > div {
-    margin-top: 1rem;
+#result > div.rating-box {
+    margin-top: 1.5rem;
     padding: 1rem;
     border-radius: 12px;
     font-weight: bold;
     font-size: 1rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+/* Optional: differentiate rating colors */
+.rating-box.sheep {
+    background-color: #fff8c4; /* soft yellow */
+}
+
+.rating-box.dog {
+    background-color: #cce5ff; /* light blue */
+}
+
+.rating-box.farmer {
+    background-color: #d4edda; /* light green */
+}
+
+.rating-box.master {
+    background-color: #ffe5b4; /* gold/light orange */
+}
+
+/* Ensure feedback boxes align with the quiz container */
+#result {
+    max-width: 600px;
+    margin: 2rem auto;
 }
 
 /* Answer highlights after submission */
