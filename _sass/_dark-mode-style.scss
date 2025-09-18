@@ -1,211 +1,28 @@
-/* Dark mode base */
+/* --- Dark mode base --- */
 body.dark-mode {
     background-color: #222222;
     color: #e0e0e0;
 }
 
-/* Main content container */
-body.dark-mode .main-content {
-    background-color: #222222;
-}
-
-/* Timeslot list enhancements */
-body.dark-mode #timeslot-list li {
-    background: #1d1d1d;
-    /* darker cards */
-    border-left-width: 5px;
-    box-shadow: none;
-    /* subtle shadow or none for cleanliness */
-}
-
-/* Title and text */
-body.dark-mode #timeslot-list li strong {
-    color: #ddd;
-}
-
-body.dark-mode #timeslot-list li em {
-    color: #bbb;
-}
-
-/* Color coding per event type */
-body.dark-mode #timeslot-list li.meeting {
-    border-color: #3399cc;
-    /* brighter blue for dark bg */
-}
-
-body.dark-mode #timeslot-list li.dinner {
-    border-color: #ff9966;
-    /* warm orange contrast */
-}
-
-body.dark-mode #timeslot-list li.surprise {
-    border-color: #cc66cc;
-    /* soft purple tone */
-    background: #2a2030;
-    color: #ddd;
-}
-
-/* Headings in dark mode */
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3,
-body.dark-mode h4,
-body.dark-mode h5,
-body.dark-mode h6 {
-    color: #d1d1d5;
-    /* or use #e0e0e0 for a slightly dimmer tone */
-}
-
-/* Optional: fine-tune different levels */
-body.dark-mode h1 {
-    color: #cfcfd3;
-}
-
-body.dark-mode h2 {
-    color: #f0f0f0;
-}
-
-body.dark-mode h3 {
-    color: #e0e0e0;
-}
-
-body.dark-mode h4,
-body.dark-mode h5,
-body.dark-mode h6 {
-    color: #d0d0d0;
-}
-
-#dark-mode-toggle {
-    padding: 0.5em 1em;
-    border: none;
-    /* removes the border */
-    border-radius: 6px;
-    /* soft rounded corners */
-    background-color: transparent;
-    /* optional: keeps it minimal */
-    color: inherit;
-    /* inherits text color from parent or mode */
-    cursor: pointer;
-    font-size: 1em;
-    transition:
-        background-color 0.3s,
-        color 0.3s;
-}
-
-#dark-mode-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    /* subtle hover effect in light mode */
-}
-
-body.dark-mode #dark-mode-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    /* subtle hover in dark mode */
-}
-
-body:not(.dark-mode) #dark-mode-toggle {
-    background-color: #eee;
-    color: #222;
-}
-
-form.dark-mode {
-    background-color: #222222;
-    padding: 1rem;
-    border-radius: 6px;
-}
-
-label.dark-mode {
-    color: #ccc;
-}
-
-/* Form container */
-body.dark-mode form {
-    background-color: #222222;
-    padding: 1rem;
-    border-radius: 6px;
-}
-
-/* Labels inside the form */
-body.dark-mode form label {
-    color: #ccc;
-    display: block;
-    margin-top: 1rem;
-}
-
-body.dark-mode form input[type="text"],
-body.dark-mode form select,
-body.dark-mode form textarea {
-    background-color: #333333;
-    color: #eee;
-    border: 1px solid #555;
-    padding: 0.4rem 0.6rem;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 0.2rem;
-    font-family: inherit;
-    /* keep same font as rest of site */
-    font-size: 1em;
-}
-
-/* Placeholder text in inputs and textareas */
-body.dark-mode form input[type="text"]::placeholder,
-body.dark-mode form textarea::placeholder {
-    color: #aaa;
-}
-
-/* Optional: focus effect for better UX */
-body.dark-mode form input[type="text"]:focus,
-body.dark-mode form select:focus,
-body.dark-mode form textarea:focus {
-    outline: none;
-    border-color: #4da3ff;
-    /* highlight border */
-    box-shadow: 0 0 4px rgba(77, 163, 255, 0.6);
-}
-
-/* Submit button */
-body.dark-mode form button[type="submit"] {
-    background-color: #555555;
-    color: #eee;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 1.5rem;
-    transition: background-color 0.3s ease;
-}
-
-/* Submit button hover */
-body.dark-mode form button[type="submit"]:hover {
-    background-color: #777777;
-}
-
-/* Paragraph notes or intros */
-body.dark-mode p.intro,
-body.dark-mode p.note {
-    color: #bbb;
-    margin-top: 1rem;
-}
-
-body.dark-mode strong {
-    color: #ffd966; /* warm yellow/gold for dark bg */
-    font-weight: 700;
-}
-
+/* Main container */
+body.dark-mode .main-content,
 body.dark-mode #quiz-container {
-    background-color: #2b2b2b; /* dark container bg */
-    border: 1px solid #555; /* softer border */
-    color: #ddd; /* light text */
+    background-color: #2b2b2b;
+    color: #ddd;
+    border: 1px solid #555;
 }
 
+/* Quiz labels */
 body.dark-mode #quiz-container label {
     color: #ccc;
 }
 
+/* Questions */
 body.dark-mode .question {
     color: #eee;
 }
 
+/* Answers */
 body.dark-mode .answers label {
     background-color: #3a3a3a;
     border: 1px solid #555;
@@ -216,66 +33,26 @@ body.dark-mode .answers label:hover {
     background-color: #444;
 }
 
-body.dark-mode #submit {
-    background-color: #4caf50; /* slightly lighter green */
-    color: white;
-}
-
-body.dark-mode #submit:hover {
-    background-color: #45a049;
-}
-
-body.dark-mode #result {
-    color: #ffd966; /* match your warm yellow/gold */
-}
-
-.fahrer strong {
-    color: #222;
-    display: block;
-    margin-bottom: 0.4rem;
-}
-
-/* Fahrgruppen grid - dark mode */
-body.dark-mode .fahrer {
-    background: #1d1d1d;
-    color: #e0e0e0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-body.dark-mode .fahrer strong {
-    color: #ffd966; /* matches your strong color choice */
-}
-
-/* --- Quiz-specific dark mode styles --- */
-
-/* Feedback highlights for single/multiple choice */
+/* Answer highlights after submission */
 body.dark-mode .answers label.correct {
-    background-color: #155724; /* dark green */
+    background-color: #155724;
     color: #d4edda;
     border-color: #28a745;
 }
 
 body.dark-mode .answers label.wrong {
-    background-color: #721c24; /* dark red */
+    background-color: #721c24;
     color: #f8d7da;
     border-color: #dc3545;
 }
 
 body.dark-mode .answers label.missed {
-    background-color: #856404; /* dark yellow/orange */
+    background-color: #856404;
     color: #fff3cd;
     border-color: #ffc107;
 }
 
-/* Maintain hover subtlety in dark mode */
-body.dark-mode .answers label.correct:hover,
-body.dark-mode .answers label.wrong:hover,
-body.dark-mode .answers label.missed:hover {
-    background-color: inherit;
-    cursor: default;
-}
-
-/* Text input boxes inside quiz */
+/* Text inputs inside quiz */
 body.dark-mode #quiz-container .answers input[type="text"] {
     background-color: #3a3a3a;
     color: #eee;
@@ -283,15 +60,8 @@ body.dark-mode #quiz-container .answers input[type="text"] {
     border-radius: 6px;
     padding: 0.5rem;
     font-size: 1rem;
-    width: 100%;
-    box-sizing: border-box;
-    transition:
-        background-color 0.3s ease,
-        border-color 0.3s ease,
-        color 0.3s ease;
 }
 
-/* Focus effect for text inputs */
 body.dark-mode #quiz-container .answers input[type="text"]:focus {
     border-color: #28a745;
     outline: none;
@@ -299,141 +69,91 @@ body.dark-mode #quiz-container .answers input[type="text"]:focus {
     color: #fff;
 }
 
-/* Placeholder text for dark mode */
 body.dark-mode #quiz-container .answers input[type="text"]::placeholder {
     color: #aaa;
 }
 
-/* Disabled input (after submission) */
 body.dark-mode #quiz-container .answers input[type="text"]:disabled {
     background-color: #2a2a2a;
     color: #888;
     border-color: #444;
 }
 
-/* --- Dark mode feedback boxes --- */
+/* Feedback boxes */
 body.dark-mode .feedback-box {
-    background-color: #2a2a2a; /* darker gray */
-    border: 1px solid #444; /* darker border */
+    background-color: #2a2a2a;
+    border: 1px solid #444;
     color: #e0e0e0;
 }
 
-/* Question title in feedback */
 body.dark-mode .feedback-box h4 {
-    color: #28a745; /* still green for visibility */
+    color: #28a745;
 }
 
-/* Normal text and summaries */
 body.dark-mode .feedback-box p {
     color: #ddd;
 }
 
 body.dark-mode .feedback-box p.summary {
-    color: #aaa; /* slightly dimmer summary */
+    color: #aaa;
     font-style: italic;
 }
 
-/* User answer highlights inside feedback */
 body.dark-mode .feedback-box span.correct {
-    background-color: #0b3d0b; /* very dark green */
-    color: #d4edda; /* light green text */
+    background-color: #0b3d0b;
+    color: #d4edda;
 }
 
 body.dark-mode .feedback-box span.wrong {
-    background-color: #4b1a1a; /* very dark red */
-    color: #f8d7da; /* light red text */
+    background-color: #4b1a1a;
+    color: #f8d7da;
 }
 
 body.dark-mode .feedback-box span.missed {
-    background-color: #5a4700; /* dark mustard/yellow */
-    color: #fff3cd; /* light yellow text */
+    background-color: #5a4700;
+    color: #fff3cd;
 }
 
-/* Correct answer lines if user was not fully correct */
-body.dark-mode .feedback-box p.correct {
-    color: #28a745; /* bright green */
+/* Result / Gesamtpunkte */
+body.dark-mode #result {
+    color: #ffd966;
 }
 
-/* Rating box at the end of quiz in dark mode */
-body.dark-mode #result > div.rating-box {
-    color: #fff;
-    font-weight: bold;
+body.dark-mode #result h3 {
+    color: #ffd966;
     text-align: center;
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Rating box */
+body.dark-mode #result > div.rating-box {
     padding: 1rem;
     border-radius: 12px;
     margin-top: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Optional: differentiate rating categories with darker backgrounds */
+/* Rating categories */
 body.dark-mode #result > div.rating-box.sheep {
-    background-color: #3b3b3b;
+    background-color: #555555;
     color: #fff8c4;
 }
 
 body.dark-mode #result > div.rating-box.dog {
-    background-color: #2e2e2e;
+    background-color: #444444;
     color: #cce5ff;
 }
 
 body.dark-mode #result > div.rating-box.farmer {
-    background-color: #242424;
+    background-color: #333333;
     color: #d4edda;
 }
 
 body.dark-mode #result > div.rating-box.master {
-    background-color: #1f1f1f;
+    background-color: #222222;
     color: #ffe5b4;
-}
-
-/* Keep hover subtlety after submission */
-body.dark-mode .answers label.correct:hover,
-body.dark-mode .answers label.wrong:hover,
-body.dark-mode .answers label.missed:hover {
-    background-color: inherit;
-    cursor: default;
-}
-
-/* Gesamtpunkte / total score */
-body.dark-mode #result h3 {
-    color: #ffd966; /* warm gold for high contrast */
-    text-align: center;
-    font-size: 1.4rem;
-    margin-top: 1.5rem;
-}
-
-/* Rating box at the end of the quiz */
-body.dark-mode #result > div.rating-box {
-    color: #222; /* keep text readable against background */
-    font-weight: bold;
-    text-align: center;
-    padding: 1rem;
-    border-radius: 12px;
-    margin-top: 1rem;
-}
-
-/* Different categories with brighter backgrounds for dark mode */
-body.dark-mode #result > div.rating-box.sheep {
-    background-color: #555555; /* dark gray */
-    color: #fff8c4; /* bright warm yellow */
-}
-
-body.dark-mode #result > div.rating-box.dog {
-    background-color: #444444; /* darker gray */
-    color: #cce5ff; /* bright blue */
-}
-
-body.dark-mode #result > div.rating-box.farmer {
-    background-color: #333333; /* dark greenish-gray */
-    color: #d4edda; /* bright green */
-}
-
-body.dark-mode #result > div.rating-box.master {
-    background-color: #222222; /* very dark gray */
-    color: #ffe5b4; /* bright gold */
-}
-
-/* Optional: add a subtle box-shadow for extra contrast */
-body.dark-mode #result h3,
-body.dark-mode #result > div.rating-box {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
