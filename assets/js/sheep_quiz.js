@@ -31,7 +31,7 @@ const quizQuestions = [
     {
         type: "text",
         question: "Welches Geräusch macht ein Schaf (auf Englisch)?",
-        correct: ["baa", "baaa"],
+        correct: ["baa", "baaa", "baaaa"],
         points: 1
     },
     {
@@ -44,7 +44,7 @@ const quizQuestions = [
     {
         type: "text",
         question: "Welche zwei Körperteile von Schafen werden häufig zur Unterscheidung verschiedener Rassen und Individuen verwendet?",
-        correct: ["Hörner und Fellfarbe", "Hörner", "Fellfarbe"],
+        correct: ["Hörner und Fellfarbe", "Hörner", "Fellfarbe", "Fell"],
         expectedCount: 2,
         points: 2
 
