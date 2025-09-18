@@ -21,11 +21,11 @@ Die Aufteilung in die Autos ist wie folgt. Beachtet bitte, dass die Fahrer dafü
   </div>
   <div class="fahrer">
     <strong>Dominik</strong><br>
-    <span>Niklas, Johannes Bu., Nathalie</span>
+    <span>Niklas, Johannes Bu., Jakob</span>
   </div>
   <div class="fahrer">
     <strong>Axin</strong><br>
-    <span>Jakob, Robin, Simon A.</span>
+    <span>Robin, Simon A.</span>
   </div>
   <div class="fahrer">
     <strong>Thomas O.</strong><br>
