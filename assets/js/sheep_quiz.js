@@ -356,7 +356,7 @@ document.getElementById("submit").addEventListener("click", () => {
 });
 
 // --- Initialize ---
-document.getElementById("participantName").placeholder = "Ihr Name";
+document.getElementById("participantName").placeholder = "Dein Name";
 document.getElementById("submit").textContent = "Quiz absenden";
 
 // --- Render quiz and create sheet headers ---
