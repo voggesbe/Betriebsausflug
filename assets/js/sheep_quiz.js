@@ -146,14 +146,17 @@ function createSheetHeaders() {
         quizQuestions.flatMap((q, i) => [`Frage ${i + 1} Antwort`, `Frage ${i + 1} Punkte`])
     ).concat(["Gesamt Punkte"]);
 
-    fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "createHeaders", headers })
-    })
-        .then(r => r.json().catch(() => { })) // response is optional
-        .catch(err => console.log("Header creation failed (see server / console):", err));
+    const params = new URLSearchParams({
+        action: "createHeaders",
+        headers: JSON.stringify(headers)
+    });
+
+    fetch(`${endpoint}?${params.toString()}`)
+        .then(r => r.text())
+        .then(console.log)
+        .catch(err => console.error("Header creation failed:", err));
 }
+
 
 // --- scoring helper for text questions ---
 function scoreTextQuestion(userRaw, q) {
@@ -336,7 +339,7 @@ document.getElementById("submit").addEventListener("click", () => {
     resultDiv.appendChild(bewertungP);
 
     // --- Prepare row and send results to Google Sheets ---
-    const timestamp = new Date().toLocaleString(); // or toISOString()
+    const timestamp = new Date().toLocaleString();
     const row = [timestamp, name];
     quizQuestions.forEach((q, i) => {
         const ans = answers[`q${i}`];
@@ -346,16 +349,16 @@ document.getElementById("submit").addEventListener("click", () => {
     });
     row.push(Math.round(totalScore * 100) / 100);
 
-    fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "appendRow", row })
-    })
-        .then(r => r.json().catch(() => { }))
-        .catch(err => console.error("Fehler beim Speichern der Ergebnisse (konsole):", err));
+    const params = new URLSearchParams({
+        action: "appendRow",
+        row: JSON.stringify(row)
+    });
 
-    submitBtn.disabled = true;
-    document.getElementById("participantName").disabled = true;
+    fetch(`${endpoint}?${params.toString()}`)
+        .then(r => r.text())
+        .then(console.log)
+        .catch(err => console.error("Fehler beim Speichern der Ergebnisse:", err));
+
 });
 
 // --- Initialize ---
