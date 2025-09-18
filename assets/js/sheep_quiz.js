@@ -247,7 +247,7 @@ document.getElementById("submit").addEventListener("click", () => {
         const showCorrectAnswers = () => {
             const p = document.createElement("p");
             const correctArray = Array.isArray(q.correct) ? q.correct : [q.correct];
-            p.textContent = `Richtige Antwort(en): ${correctArray.join(", ")} (Punkte: ${questionScore})`;
+            p.textContent = `Richtige Antwort(en): ${correctArray.join(", ")} (Punkte: ${questionScore}) von ${q.points}`;
             p.style.color = "#ff6600";
             p.style.fontSize = "inherit";
             fbBox.appendChild(p);
