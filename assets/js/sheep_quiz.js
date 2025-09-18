@@ -232,6 +232,7 @@ document.getElementById("submit").addEventListener("click", () => {
     resultDiv.innerHTML = "";
 
     quizQuestions.forEach((q, i) => {
+
         const userAnswerRaw = answers[`q${i}`];
         const questionScore = parseFloat(answers[`score_q${i}`]);
         const qNumber = i + 1;
@@ -324,20 +325,51 @@ document.getElementById("submit").addEventListener("click", () => {
 
         } else if (q.type === "text") {
             const input = document.querySelector(`input[name="q${i}"]`);
-            input.disabled = true;
-            input.style.display = "none";
+            if (input) input.disabled = true;
+            if (input) input.style.display = "none";
 
-            const userAnswers = userAnswerRaw
-                ? userAnswerRaw.split(/,|und/).map(a => a.trim()).filter(Boolean)
-                : [];
+            // Normalize userAnswerRaw: it can be a string (from input) or an array (from scoring)
+            let userAnswers = [];
+            if (Array.isArray(userAnswerRaw)) {
+                userAnswers = userAnswerRaw;
+            } else if (typeof userAnswerRaw === "string" && userAnswerRaw.trim() !== "") {
+                userAnswers = userAnswerRaw
+                    .split(/,|;|\/|\bund\b|\band\b/i)
+                    .map(a => a.trim())
+                    .filter(Boolean);
+            }
 
-            fullyCorrect = userAnswers.every(ans => q.correct.map(c => c.toLowerCase()).includes(ans.toLowerCase())) &&
-                userAnswers.length === q.correct.length;
-
+            // Display user answer nicely
             if (userAnswers.length) {
                 userAnswerDisplay = userAnswers.join(", ");
             }
+
+            // Determine if fully correct
+            const correctSet = new Set(q.correct.map(c => c.toLowerCase()));
+            fullyCorrect = userAnswers.length === correctSet.size &&
+                userAnswers.every(ans => correctSet.has(ans.toLowerCase()));
+
+            // Optional: highlight each user answer
+            if (userAnswers.length) {
+                const answersDiv = document.createElement("div");
+                answersDiv.style.marginTop = "4px";
+                userAnswers.forEach(ans => {
+                    const ansP = document.createElement("span");
+                    if (correctSet.has(ans.toLowerCase())) {
+                        ansP.textContent = `✅ ${ans}`;
+                        ansP.style.color = "#28a745";
+                        ansP.style.marginRight = "6px";
+                    } else {
+                        ansP.textContent = `❌ ${ans}`;
+                        ansP.style.color = "#ff4d4d";
+                        ansP.style.marginRight = "6px";
+                    }
+                    answersDiv.appendChild(ansP);
+                });
+                fbBox.appendChild(answersDiv);
+            }
         }
+
 
         // --- Show user answer ---
         const userP = document.createElement("p");
