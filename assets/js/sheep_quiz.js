@@ -230,10 +230,11 @@ document.getElementById("submit").addEventListener("click", () => {
             if (questionScore < 0) questionScore = 0;
         } else if (q.type === "text") {
             const input = document.querySelector(`input[name="q${i}"]`);
-            const raw = input ? input.value : "";
-            const res = scoreTextQuestion(raw, q);
+            const raw = input ? input.value : "";             // raw user input (string)
+            const res = scoreTextQuestion(raw, q);           // scoring + parsed(normalized) answers
             questionScore = res.score;
-            userAnswer = res.userAnswers; // array of parsed answers
+            userAnswer = res.userAnswers;                    // keep parsed/normalized answers in q{i}
+            answers[`raw_q${i}`] = raw;                      // store raw string separately
         }
 
         totalScore += questionScore;
@@ -330,20 +331,27 @@ document.getElementById("submit").addEventListener("click", () => {
             if (input) input.disabled = true;
             if (input) input.style.display = "none";
 
-            // always show what the user actually typed
-            userAnswerDisplay = userAnswerRaw && userAnswerRaw.length
-                ? (Array.isArray(userAnswerRaw) ? userAnswerRaw.join(", ") : userAnswerRaw)
-                : "Nicht beantwortet";
+            // retrieve stored values:
+            const rawInput = answers[`raw_q${i}`];   // raw string (what user typed)
+            const parsedAns = answers[`q${i}`];      // parsed/normalized array (from scoreTextQuestion)
 
-            // normalize for checking correctness
             let userAnswers = [];
-            if (Array.isArray(userAnswerRaw)) {
-                userAnswers = userAnswerRaw.map(s => normalizeGerman(s)).filter(Boolean);
-            } else if (typeof userAnswerRaw === "string" && userAnswerRaw.trim() !== "") {
-                userAnswers = userAnswerRaw
+
+            // Always display the raw input if we have it
+            if (typeof rawInput === "string" && rawInput.trim() !== "") {
+                userAnswerDisplay = rawInput;
+                // for correctness, normalize & split the raw input
+                userAnswers = rawInput
                     .split(/,|;|\/|\bund\b|\band\b/i)
                     .map(s => normalizeGerman(s))
                     .filter(Boolean);
+            } else if (Array.isArray(parsedAns) && parsedAns.length) {
+                // fallback: no raw stored (older data?) — show parsed answers
+                userAnswerDisplay = parsedAns.join(", ");
+                userAnswers = parsedAns.map(s => normalizeGerman(s)).filter(Boolean);
+            } else {
+                userAnswerDisplay = "Nicht beantwortet";
+                userAnswers = [];
             }
 
             const correctSet = new Set(q.correct.map(s => normalizeGerman(s)));
@@ -351,6 +359,7 @@ document.getElementById("submit").addEventListener("click", () => {
             fullyCorrect = userAnswers.length === expectedCount &&
                 userAnswers.every(ans => correctSet.has(ans));
         }
+
 
 
         // User answer
@@ -420,11 +429,18 @@ document.getElementById("submit").addEventListener("click", () => {
     const timestamp = new Date().toLocaleString();
     const row = [timestamp, name];
     quizQuestions.forEach((q, i) => {
-        const ans = answers[`q${i}`];
-        const displayAns = Array.isArray(ans) ? ans.join("; ") : (ans === undefined || ans === null ? "" : ans);
+        const ansParsed = answers[`q${i}`];
+        const ansRaw = answers[`raw_q${i}`];
+
+        // prefer raw user text input (for text questions), otherwise show parsed/selected value(s)
+        const displayAns = (typeof ansRaw === "string" && ansRaw !== "")
+            ? ansRaw
+            : (Array.isArray(ansParsed) ? ansParsed.join("; ") : (ansParsed === undefined || ansParsed === null ? "" : ansParsed));
+
         row.push(displayAns);
         row.push(answers[`score_q${i}`]);
     });
+
     row.push(Math.round(totalScore * 100) / 100);
 
     const params = new URLSearchParams({
