@@ -330,30 +330,28 @@ document.getElementById("submit").addEventListener("click", () => {
             if (input) input.disabled = true;
             if (input) input.style.display = "none";
 
+            // always show what the user actually typed
+            userAnswerDisplay = userAnswerRaw && userAnswerRaw.length
+                ? (Array.isArray(userAnswerRaw) ? userAnswerRaw.join(", ") : userAnswerRaw)
+                : "Nicht beantwortet";
+
+            // normalize for checking correctness
             let userAnswers = [];
             if (Array.isArray(userAnswerRaw)) {
-                userAnswers = userAnswerRaw
-                    .map(s => normalizeGerman(s))
-                    .filter(Boolean);
-                if (userAnswers.length) {
-                    userAnswerDisplay = userAnswerRaw.join(", ");
-                }
+                userAnswers = userAnswerRaw.map(s => normalizeGerman(s)).filter(Boolean);
             } else if (typeof userAnswerRaw === "string" && userAnswerRaw.trim() !== "") {
-                userAnswerDisplay = userAnswerRaw;
                 userAnswers = userAnswerRaw
                     .split(/,|;|\/|\bund\b|\band\b/i)
                     .map(s => normalizeGerman(s))
                     .filter(Boolean);
             }
 
-
-
             const correctSet = new Set(q.correct.map(s => normalizeGerman(s)));
             const expectedCount = q.expectedCount || 1;
             fullyCorrect = userAnswers.length === expectedCount &&
-                userAnswers.every(ans => correctSet.has(ans.toLowerCase()));
-
+                userAnswers.every(ans => correctSet.has(ans));
         }
+
 
         // User answer
         const userP = document.createElement("p");
