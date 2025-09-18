@@ -9,7 +9,7 @@
     {
         "title": "Klopause",
         "datetime": "ca. 2025-09-19T09:30",
-        "description": "Bevor wir ankommen bitte nochmal eine Autobahn Raststätte mit Toilette besuchen",
+        "description": "Bevor wir ankommen bitte nochmal eine Autobahn Raststätte mit Toilette besuchen, z.B. um Neckarsulm ist eine gute Idee. Vor Ort gibt es nur die Natur!",
         "eventType": "break",
         "showAlways": true
     },
@@ -17,6 +17,7 @@
         "title": "Schafe hüten",
         "datetime": "2025-09-19T10:15",
         "description": "Wir hüten gemeinsam Schafe. Wer sich inspiriert fühlt kann ein Gedicht schreiben oder ein Bild malen.",
+        "maps_link": "https://maps.app.goo.gl/ux7DerVcEJfKAYPX9?g_st=aw",
         "eventType": "surprise",
         "show_on": "2025-09-19T07:30"
     },
