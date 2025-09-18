@@ -311,50 +311,52 @@ body.dark-mode #quiz-container .answers input[type="text"]:disabled {
     border-color: #444;
 }
 
-/* --- Feedback boxes in dark mode --- */
+/* --- Dark mode feedback boxes --- */
 body.dark-mode .feedback-box {
-    background-color: #3a3a3a; /* dark gray background */
-    border: 1px solid #555; /* subtle border */
-    color: #e0e0e0; /* light text */
+    background-color: #2a2a2a; /* darker gray */
+    border: 1px solid #444; /* darker border */
+    color: #e0e0e0;
 }
 
+/* Question title in feedback */
 body.dark-mode .feedback-box h4 {
-    color: #28a745; /* maintain green question title */
+    color: #28a745; /* still green for visibility */
 }
 
+/* Normal text and summaries */
 body.dark-mode .feedback-box p {
     color: #ddd;
 }
 
 body.dark-mode .feedback-box p.summary {
-    color: #bbb; /* slightly dimmer for summary lines */
+    color: #aaa; /* slightly dimmer summary */
     font-style: italic;
 }
 
 /* User answer highlights inside feedback */
 body.dark-mode .feedback-box span.correct {
-    background-color: #155724; /* dark green */
+    background-color: #0b3d0b; /* very dark green */
     color: #d4edda; /* light green text */
 }
 
 body.dark-mode .feedback-box span.wrong {
-    background-color: #721c24; /* dark red */
+    background-color: #4b1a1a; /* very dark red */
     color: #f8d7da; /* light red text */
 }
 
 body.dark-mode .feedback-box span.missed {
-    background-color: #856404; /* dark yellow/orange */
+    background-color: #5a4700; /* dark mustard/yellow */
     color: #fff3cd; /* light yellow text */
 }
 
-/* Correct answer lines if not fully correct */
+/* Correct answer lines if user was not fully correct */
 body.dark-mode .feedback-box p.correct {
-    color: #28a745; /* same green as question title */
+    color: #28a745; /* bright green */
 }
 
 /* Rating box at the end of quiz in dark mode */
 body.dark-mode #result > div.rating-box {
-    color: #222;
+    color: #fff;
     font-weight: bold;
     text-align: center;
     padding: 1rem;
@@ -362,28 +364,28 @@ body.dark-mode #result > div.rating-box {
     margin-top: 1rem;
 }
 
-/* Optional: differentiate rating categories */
+/* Optional: differentiate rating categories with darker backgrounds */
 body.dark-mode #result > div.rating-box.sheep {
-    background-color: #555555;
+    background-color: #3b3b3b;
     color: #fff8c4;
 }
 
 body.dark-mode #result > div.rating-box.dog {
-    background-color: #444444;
+    background-color: #2e2e2e;
     color: #cce5ff;
 }
 
 body.dark-mode #result > div.rating-box.farmer {
-    background-color: #333333;
+    background-color: #242424;
     color: #d4edda;
 }
 
 body.dark-mode #result > div.rating-box.master {
-    background-color: #2b2b2b;
+    background-color: #1f1f1f;
     color: #ffe5b4;
 }
 
-/* Maintain subtle hover behavior after submission */
+/* Keep hover subtlety after submission */
 body.dark-mode .answers label.correct:hover,
 body.dark-mode .answers label.wrong:hover,
 body.dark-mode .answers label.missed:hover {
