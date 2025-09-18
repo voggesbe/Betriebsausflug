@@ -346,7 +346,7 @@ document.getElementById("submit").addEventListener("click", () => {
 
             const correctSet = new Set(q.correct.map(s => normalizeGerman(s)));
             fullyCorrect = userAnswers.length === correctSet.size &&
-                userAnswers.every(ans => correctSet.has(ans.normalizeGerman()));
+                userAnswers.every(ans => correctSet.has(ans.toLowerCase()));
 
             if (userAnswers.length) {
                 const answersDiv = document.createElement("div");
@@ -355,7 +355,7 @@ document.getElementById("submit").addEventListener("click", () => {
                     const ansSpan = document.createElement("span");
                     ansSpan.textContent = ans;
 
-                    if (correctSet.has(ans.normalizeGerman())) {
+                    if (correctSet.has(ans.toLowerCase())) {
                         ansSpan.className = "correct";
                     } else {
                         ansSpan.className = "wrong";
