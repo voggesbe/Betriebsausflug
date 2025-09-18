@@ -243,6 +243,7 @@ document.getElementById("submit").addEventListener("click", () => {
         fbTitle.textContent = `${qNumber}. ${q.question}`;
         fbBox.appendChild(fbTitle);
 
+        // Helper to show correct answers only if needed
         const showCorrectAnswers = () => {
             const p = document.createElement("p");
             const correctArray = Array.isArray(q.correct) ? q.correct : [q.correct];
@@ -254,68 +255,56 @@ document.getElementById("submit").addEventListener("click", () => {
 
         if (q.type === "single") {
             const inputs = document.querySelectorAll(`input[name="q${i}"]`);
-            inputs.forEach(input => input.disabled = true);
-
-            inputs.forEach(input => {
-                const label = input.parentElement;
-
-                // Add icons as before
-                if (input.value === q.correct) {
-                    label.innerHTML = `✅ ${label.textContent}`;
-                    label.style.color = "green";
-                    label.style.fontWeight = "bold";
-                } else if (input.checked && input.value !== q.correct) {
-                    label.innerHTML = `❌ ${label.textContent}`;
-                    label.style.color = "red";
-                    label.style.fontWeight = "bold";
-                }
-
-                // <-- Add the class highlighting here
-                if (input.value === q.correct) {
-                    label.classList.add("correct");
-                } else if (input.checked && input.value !== q.correct) {
-                    label.classList.add("wrong");
-                }
-                // End of class highlighting
-            });
-
-            if (userAnswer !== q.correct) showCorrectAnswers();
-
-
-        } else if (q.type === "multiple") {
-            const inputs = document.querySelectorAll(`input[name="q${i}"]`);
-            inputs.forEach(input => input.disabled = true);
-            const correctSet = new Set(q.correct);
-
             let fullyCorrect = true;
 
             inputs.forEach(input => {
+                input.disabled = true;
                 const label = input.parentElement;
+                const optionText = input.value;
 
-                if (input.checked && correctSet.has(input.value)) {
-                    label.innerHTML = `✅ ${label.textContent}`;
-                    label.classList.add("correct");   // <-- add here
-                } else if (!input.checked && correctSet.has(input.value)) {
-                    label.innerHTML = `⚠️ ${label.textContent}`;
-                    label.classList.add("missed");    // <-- add here
+                if (input.checked && input.value === q.correct) {
+                    label.innerHTML = `✅ ${optionText}`;
+                    label.classList.add("correct");
+                } else if (input.checked && input.value !== q.correct) {
+                    label.innerHTML = `❌ ${optionText}`;
+                    label.classList.add("wrong");
                     fullyCorrect = false;
-                } else if (input.checked && !correctSet.has(input.value)) {
-                    label.innerHTML = `❌ ${label.textContent}`;
-                    label.classList.add("wrong");     // <-- add here
+                } else if (!input.checked && input.value === q.correct) {
                     fullyCorrect = false;
                 }
             });
 
-            // Only show full correct answers if not fully correct
-            if (!fullyCorrect) {
-                const p = document.createElement("p");
-                p.textContent = `Richtige Antwort(en): ${q.correct.join(", ")} (Punkte: ${questionScore})`;
-                p.style.color = "#ff6600";
-                p.style.fontSize = "inherit";
-                fbBox.appendChild(p);
-            }
+            if (!fullyCorrect) showCorrectAnswers();
+        }
 
-        } else if (q.type === "text") {
+        else if (q.type === "multiple") {
+            const inputs = document.querySelectorAll(`input[name="q${i}"]`);
+            const correctSet = new Set(q.correct);
+            let fullyCorrect = true;
+
+            inputs.forEach(input => {
+                input.disabled = true;
+                const label = input.parentElement;
+                const optionText = input.value;
+
+                if (input.checked && correctSet.has(input.value)) {
+                    label.innerHTML = `✅ ${optionText}`;
+                    label.classList.add("correct");
+                } else if (!input.checked && correctSet.has(input.value)) {
+                    label.innerHTML = `⚠️ ${optionText}`;
+                    label.classList.add("missed");
+                    fullyCorrect = false;
+                } else if (input.checked && !correctSet.has(input.value)) {
+                    label.innerHTML = `❌ ${optionText}`;
+                    label.classList.add("wrong");
+                    fullyCorrect = false;
+                }
+            });
+
+            if (!fullyCorrect) showCorrectAnswers();
+        }
+
+        else if (q.type === "text") {
             const input = document.querySelector(`input[name="q${i}"]`);
             input.disabled = true;
 
@@ -328,12 +317,12 @@ document.getElementById("submit").addEventListener("click", () => {
             const rightAnswers = userAnswers.filter(ans => correctLower.includes(ans));
             const wrongAnswers = userAnswers.filter(ans => !correctLower.includes(ans));
 
-            input.style.display = "none";
-
-            let fullyCorrect = rightAnswers.length === correctArray.length && wrongAnswers.length === 0;
+            input.style.display = "none"; // hide the text input
 
             const responseDiv = document.createElement("div");
             responseDiv.style.fontSize = "inherit";
+
+            const fullyCorrect = rightAnswers.length === correctArray.length && wrongAnswers.length === 0;
 
             const userFeedback = rightAnswers.map(ans => {
                 const original = correctArray.find(c => c.toLowerCase() === ans);
