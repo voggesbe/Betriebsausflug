@@ -186,6 +186,8 @@ document.getElementById("submit").addEventListener("click", () => {
 
             const expectedCount = q.expectedCount || 1;
 
+            const correctArray = Array.isArray(q.correct) ? q.correct : [q.correct];
+
             // all right answers in lower case
             const correctLower = q.correct.map(a => a.toLowerCase());
 
@@ -276,6 +278,8 @@ document.getElementById("submit").addEventListener("click", () => {
 
             // Split user input by commas and "und", trim spaces, and filter empty entries
             const userAnswers = userAnswerRaw.split(/,|und/).map(a => a.trim()).filter(Boolean);
+
+            const correctArray = Array.isArray(q.correct) ? q.correct : [q.correct];
 
             // Lowercase all correct answers for comparison
             const correctLower = q.correct.map(a => a.toLowerCase());
