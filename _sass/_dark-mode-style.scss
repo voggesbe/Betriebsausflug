@@ -245,3 +245,68 @@ body.dark-mode .fahrer {
 body.dark-mode .fahrer strong {
     color: #ffd966; /* matches your strong color choice */
 }
+
+/* --- Quiz-specific dark mode styles --- */
+
+/* Feedback highlights for single/multiple choice */
+body.dark-mode .answers label.correct {
+    background-color: #155724; /* dark green */
+    color: #d4edda;
+    border-color: #28a745;
+}
+
+body.dark-mode .answers label.wrong {
+    background-color: #721c24; /* dark red */
+    color: #f8d7da;
+    border-color: #dc3545;
+}
+
+body.dark-mode .answers label.missed {
+    background-color: #856404; /* dark yellow/orange */
+    color: #fff3cd;
+    border-color: #ffc107;
+}
+
+/* Maintain hover subtlety in dark mode */
+body.dark-mode .answers label.correct:hover,
+body.dark-mode .answers label.wrong:hover,
+body.dark-mode .answers label.missed:hover {
+    background-color: inherit;
+    cursor: default;
+}
+
+/* Text input boxes inside quiz */
+body.dark-mode #quiz-container .answers input[type="text"] {
+    background-color: #3a3a3a;
+    color: #eee;
+    border: 1px solid #555;
+    border-radius: 6px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease;
+}
+
+/* Focus effect for text inputs */
+body.dark-mode #quiz-container .answers input[type="text"]:focus {
+    border-color: #28a745;
+    outline: none;
+    background-color: #444;
+    color: #fff;
+}
+
+/* Placeholder text for dark mode */
+body.dark-mode #quiz-container .answers input[type="text"]::placeholder {
+    color: #aaa;
+}
+
+/* Disabled input (after submission) */
+body.dark-mode #quiz-container .answers input[type="text"]:disabled {
+    background-color: #2a2a2a;
+    color: #888;
+    border-color: #444;
+}
