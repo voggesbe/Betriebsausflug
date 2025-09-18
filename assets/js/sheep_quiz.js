@@ -63,7 +63,7 @@ const quizQuestions = [
     {
         type: "text",
         question: "Welches Schaf wurde 1996 als erstes Säugetier der Welt geklont?",
-        correct: "Dolly",
+        correct: ["Dolly"],
         points: 1
     },
     {
@@ -75,7 +75,7 @@ const quizQuestions = [
     {
         type: "text",
         question: "Welches Land hat weltweit die größte Zahl an Schafen?",
-        correct: "China",
+        correct: ["China"],
         points: 3
     },
     {
