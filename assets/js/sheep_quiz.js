@@ -228,6 +228,7 @@ document.getElementById("submit").addEventListener("click", () => {
     });
 
     // --- Show feedback ---
+    // --- Show feedback ---
     const resultDiv = document.getElementById("result");
     resultDiv.innerHTML = "";
 
@@ -251,18 +252,20 @@ document.getElementById("submit").addEventListener("click", () => {
                 if (input.value === q.correct) {
                     label.style.color = "green";
                     label.style.fontWeight = "bold";
+                    label.innerHTML = `✅ ${label.textContent}`;
                 } else if (input.checked && input.value !== q.correct) {
                     label.style.color = "red";
                     label.style.fontWeight = "bold";
+                    label.innerHTML = `❌ ${label.textContent}`;
                 }
             });
 
-            if (userAnswer !== q.correct) {
-                const p = document.createElement("p");
-                p.textContent = `Richtige Antwort: ${q.correct} (Punkte: ${questionScore})`;
-                p.style.color = "#ff6600";
-                fbBox.appendChild(p);
-            }
+            // Always show correct answer
+            const p = document.createElement("p");
+            p.textContent = `Richtige Antwort: ${q.correct} (Punkte: ${questionScore})`;
+            p.style.color = "#ff6600";
+            p.style.fontSize = "inherit";
+            fbBox.appendChild(p);
 
         } else if (q.type === "multiple") {
             const inputs = document.querySelectorAll(`input[name="q${i}"]`);
@@ -273,70 +276,108 @@ document.getElementById("submit").addEventListener("click", () => {
                 const label = input.parentElement;
                 if (input.checked && correctSet.has(input.value)) {
                     label.style.color = "green";
+                    label.innerHTML = `✅ ${label.textContent}`;
                 } else if (!input.checked && correctSet.has(input.value)) {
-                    label.style.color = "orange"; // missed
+                    label.style.color = "orange";
+                    label.innerHTML = `⚠️ ${label.textContent}`; // missed
                 } else if (input.checked && !correctSet.has(input.value)) {
-                    label.style.color = "red"; // wrong
+                    label.style.color = "red";
+                    label.innerHTML = `❌ ${label.textContent}`;
                 }
             });
 
-            if ((Array.isArray(userAnswer) ? userAnswer.slice().sort().join(",") : "") !== q.correct.slice().sort().join(",")) {
-                const p = document.createElement("p");
-                p.textContent = `Richtige Antwort(en): ${q.correct.join(", ")} (Punkte: ${questionScore})`;
-                p.style.color = "#ff6600";
-                fbBox.appendChild(p);
-            }
+            // Always show correct answers
+            const p = document.createElement("p");
+            p.textContent = `Richtige Antwort(en): ${q.correct.join(", ")} (Punkte: ${questionScore})`;
+            p.style.color = "#ff6600";
+            p.style.fontSize = "inherit";
+            fbBox.appendChild(p);
 
         } else if (q.type === "text") {
             const input = document.querySelector(`input[name="q${i}"]`);
-            if (input) input.disabled = true;
+            input.disabled = true;
 
-            const userAnswers = Array.isArray(answers[`q${i}`]) ? answers[`q${i}`] : (answers[`q${i}`] ? [answers[`q${i}`]] : []);
-            const correctArray = (Array.isArray(q.correct) ? q.correct : [q.correct]).map(a => a.trim());
+            const userAnswerRaw = input.value.trim().toLowerCase();
+            const userAnswers = userAnswerRaw.split(/,|und/).map(a => a.trim()).filter(Boolean);
 
-            // Hide input field to show formatted feedback
-            if (input) input.style.display = "none";
+            const correctArray = Array.isArray(q.correct) ? q.correct : [q.correct];
+            const correctLower = correctArray.map(a => a.toLowerCase());
+
+            const rightAnswers = userAnswers.filter(ans => correctLower.includes(ans));
+            const wrongAnswers = userAnswers.filter(ans => !correctLower.includes(ans));
+
+            input.style.display = "none";
 
             const responseDiv = document.createElement("div");
-            responseDiv.innerHTML = userAnswers.map(a => {
-                const lower = a.toLowerCase();
-                if (correctArray.map(c => c.toLowerCase()).includes(lower)) return `<span style="color:green; font-weight:bold;">${a}</span>`;
-                else return `<span style="color:red; font-weight:bold;">${a}</span>`;
-            }).join(", ");
+            responseDiv.style.fontSize = "inherit";
+
+            const userFeedback = rightAnswers.map(ans => {
+                const original = correctArray.find(c => c.toLowerCase() === ans);
+                return `<span style="color:green; font-weight:bold;">✅ ${original}</span>`;
+            }).concat(wrongAnswers.map(ans => {
+                return `<span style="color:red; font-weight:bold;">❌ ${ans}</span>`;
+            })).join(", ");
+
+            responseDiv.innerHTML = userFeedback;
             fbBox.appendChild(responseDiv);
 
-            if (userAnswers.length === 0 || userAnswers.filter(a => correctArray.map(c => c.toLowerCase()).includes(a.toLowerCase())).length !== (q.expectedCount || 1)) {
-                const p = document.createElement("p");
-                p.textContent = `Richtige Antwort(en): ${q.correct.join(", ")} (Punkte: ${questionScore})`;
-                p.style.color = "#ff6600";
-                fbBox.appendChild(p);
-            }
+            // Always show full correct answers
+            const p = document.createElement("p");
+            p.textContent = `Richtige Antwort(en): ${correctArray.join(", ")} (Punkte: ${questionScore})`;
+            p.style.color = "#ff6600";
+            p.style.fontSize = "inherit";
+            fbBox.appendChild(p);
         }
 
         resultDiv.appendChild(fbBox);
     });
 
-    // Gesamtpunktzahl und Bewertung
+    // Gesamtpunktzahl und Bewertungstext anzeigen
     const totalH3 = document.createElement("h3");
     const maxScore = quizQuestions.reduce((sum, q) => sum + q.points, 0);
     totalH3.textContent = `Gesamtpunkte: ${totalScore}/${maxScore}`;
+    totalH3.style.color = "#333";
     totalH3.style.textAlign = "center";
     totalH3.style.marginTop = "1rem";
 
+    // Bewertung anhand der Gesamtpunkte mit Icons & Hintergrundfarbe
     let bewertung = "";
-    if (totalScore <= 5) bewertung = "Schäfchenzähler";
-    else if (totalScore <= 12) bewertung = "Hütehund-Niveau";
-    else if (totalScore <= 20) bewertung = "Erfahrener Schäfer";
-    else bewertung = "Schafmeister";
+    let icon = "";
+    let bgColor = "";
 
-    const bewertungP = document.createElement("p");
-    bewertungP.textContent = `Bewertung: ${bewertung}`;
-    bewertungP.style.textAlign = "center";
-    bewertungP.style.fontWeight = "bold";
-    bewertungP.style.marginTop = "0.3rem";
+    if (totalScore <= 5) {
+        bewertung = "Schäfchenzähler";
+        icon = "🐑";
+        bgColor = "#fff8c4"; // soft yellow
+    } else if (totalScore <= 12) {
+        bewertung = "Hütehund-Niveau";
+        icon = "🐕";
+        bgColor = "#cce5ff"; // light blue
+    } else if (totalScore <= 20) {
+        bewertung = "Erfahrener Schäfer";
+        icon = "👨‍🌾";
+        bgColor = "#d4edda"; // light green
+    } else {
+        bewertung = "Schafmeister";
+        icon = "👑🐑";
+        bgColor = "#ffe5b4"; // gold/light orange
+    }
+
+    // Container for rating
+    const ratingDiv = document.createElement("div");
+    ratingDiv.style.backgroundColor = bgColor;
+    ratingDiv.style.padding = "1rem";
+    ratingDiv.style.marginTop = "1rem";
+    ratingDiv.style.textAlign = "center";
+    ratingDiv.style.borderRadius = "12px";
+    ratingDiv.style.fontWeight = "bold";
+    ratingDiv.style.fontSize = "inherit";
+    ratingDiv.textContent = `${icon} ${bewertung}`;
 
     resultDiv.appendChild(totalH3);
-    resultDiv.appendChild(bewertungP);
+    resultDiv.appendChild(ratingDiv);
+
+
 
     // --- Prepare row and send results to Google Sheets ---
     const timestamp = new Date().toLocaleString();
