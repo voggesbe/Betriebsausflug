@@ -195,6 +195,9 @@ document.getElementById("submit").addEventListener("click", () => {
             if (userAnswers.some(ans => correctLower.includes(ans))) {
                 questionScore = q.points;
             }
+            else {
+                questionScore = 0;
+            }
             // check if there are incorrect answers
             let incorrectCount = userAnswers.filter(ans => ans && !correctLower.includes(ans)).length;
 
@@ -301,7 +304,7 @@ document.getElementById("submit").addEventListener("click", () => {
             // Show correct answers and points if user's answer is not fully correct
             if (rightAnswers.length !== correctLower.length || wrongAnswers.length > 0) {
                 const p = document.createElement("p");
-                p.textContent = `Correct answer(s): ${q.correct.join(", ")} (Points: ${questionScore})`;
+                p.textContent = `Richtige Antwort(en): ${q.correct.join(", ")} (Punkte: ${questionScore})`;
                 p.style.color = "#ff6600";
                 fbBox.appendChild(p);
             }
