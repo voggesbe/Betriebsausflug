@@ -175,7 +175,7 @@
     text-align: center;
     border-radius: 12px;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.25rem;
     transition: background-color 0.3s ease;
 }
 
@@ -198,4 +198,25 @@
 .rating-box.master {
     background-color: #ffe5b4;
     color: #333;
+}
+
+/* --- Rating Boxes with Icons (Light Mode) --- */
+#result > div.rating-box.sheep::before {
+    content: "🐑 ";
+    margin-right: 0.5rem;
+}
+
+#result > div.rating-box.dog::before {
+    content: "🐕 ";
+    margin-right: 0.5rem;
+}
+
+#result > div.rating-box.farmer::before {
+    content: "👨‍🌾 ";
+    margin-right: 0.5rem;
+}
+
+#result > div.rating-box.master::before {
+    content: "👑🐑 ";
+    margin-right: 0.5rem;
 }
