@@ -373,51 +373,43 @@ document.getElementById("submit").addEventListener("click", () => {
 
 
 
-
     // Gesamtpunktzahl und Bewertungstext anzeigen
     const totalH3 = document.createElement("h3");
     const maxScore = quizQuestions.reduce((sum, q) => sum + q.points, 0);
     totalH3.textContent = `Gesamtpunkte: ${totalScore}/${maxScore}`;
-    totalH3.style.color = "#333";
-    totalH3.style.textAlign = "center";
-    totalH3.style.marginTop = "1rem";
+    totalH3.className = "total-score"; // use CSS class
+    resultDiv.appendChild(totalH3);
 
-    // Bewertung anhand der Gesamtpunkte mit Icons & Hintergrundfarbe
+    // Bewertung anhand der Gesamtpunkte mit Icons
     let bewertung = "";
     let icon = "";
-    let bgColor = "";
+    let ratingClass = "";
 
     if (totalScore <= 5) {
         bewertung = "Schäfchenzähler";
         icon = "🐑";
-        bgColor = "#fff8c4"; // soft yellow
+        ratingClass = "sheep";
     } else if (totalScore <= 12) {
         bewertung = "Hütehund-Niveau";
         icon = "🐕";
-        bgColor = "#cce5ff"; // light blue
+        ratingClass = "dog";
     } else if (totalScore <= 20) {
         bewertung = "Erfahrener Schäfer";
         icon = "👨‍🌾";
-        bgColor = "#d4edda"; // light green
+        ratingClass = "farmer";
     } else {
         bewertung = "Schafmeister";
         icon = "👑🐑";
-        bgColor = "#ffe5b4"; // gold/light orange
+        ratingClass = "master";
     }
 
     // Container for rating
     const ratingDiv = document.createElement("div");
-    ratingDiv.style.backgroundColor = bgColor;
-    ratingDiv.style.padding = "1rem";
-    ratingDiv.style.marginTop = "1rem";
-    ratingDiv.style.textAlign = "center";
-    ratingDiv.style.borderRadius = "12px";
-    ratingDiv.style.fontWeight = "bold";
-    ratingDiv.style.fontSize = "inherit";
+    ratingDiv.className = `rating-box ${ratingClass}`; // assign CSS class
     ratingDiv.textContent = `${icon} ${bewertung}`;
 
-    resultDiv.appendChild(totalH3);
     resultDiv.appendChild(ratingDiv);
+
 
 
 
