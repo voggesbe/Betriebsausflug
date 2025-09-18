@@ -179,7 +179,7 @@ document.getElementById("submit").addEventListener("click", () => {
             userAnswer = input.value.trim().toLowerCase();
 
             // Split the entries if there are more than one answer, seperated by commas and "und"
-            const userAnswers = userAnswerRaw
+            const userAnswers = userAnswer
                 .split(/,|und/)
                 .map(a => a.trim())
                 .filter(a => a.length > 0);
