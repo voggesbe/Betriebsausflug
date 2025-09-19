@@ -19,7 +19,7 @@
         "datetime": "2025-09-19T10:15",
         "description": "Wir hüten gemeinsam Schafe. Wer sich inspiriert fühlt kann ein Gedicht schreiben oder ein Bild malen.",
         "maps_link": "https://maps.app.goo.gl/ux7DerVcEJfKAYPX9?g_st=aw",
-        "eventType": "surprise",
+        "eventType": "meeting",
         "showAlways": true
     },
     {
@@ -39,7 +39,7 @@
         "website": "https://www.kloster-schoental.de/kultur-freizeit/",
         "place": "Klosterhof 6 | 74214 Schöntal",
         "maps_link": "https://maps.app.goo.gl/qoTR4mn6L83aPxo48",
-        "eventType": "surprise",
+        "eventType": "meeting",
         "showAlways": true
     },
     {
